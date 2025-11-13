@@ -12,7 +12,7 @@ DB::table('pengguna')->insert([
     [
         'name' => 'Administrator',
         'email' => 'admin@catadopt.com',
-        'password' => Hash::make('password123'), // ✅ sudah di-hash!
+        'password' => Hash::make('password123'),
         'role' => 'admin',
         'address' => 'Jember',
         'phone' => '08123456789',

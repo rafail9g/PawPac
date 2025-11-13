@@ -10,53 +10,77 @@
         body {
             min-height: 100vh;
             display: flex;
-            background-color: #f8f9fa;
+            background-color: #fffaf2;
             margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #4b2e14;
         }
+
         .sidebar {
             width: 250px;
-            background-color: #343a40;
-            color: white;
+            background-color: #f8e6cc;
+            color: #4b2e14;
             display: flex;
             flex-direction: column;
             padding-top: 20px;
+            box-shadow: 2px 0 6px rgba(0,0,0,0.1);
         }
+
         .sidebar h3 {
             text-align: center;
             margin-bottom: 30px;
+            color: #4b2e14;
         }
+
         .sidebar a {
-            color: white;
+            color: #4b2e14;
             text-decoration: none;
             padding: 12px 20px;
             display: block;
-            transition: background 0.2s;
+            transition: background 0.3s, color 0.3s;
+            border-radius: 8px;
+            margin: 0 10px 6px 10px;
         }
-        .sidebar a:hover, .sidebar a.active {
-            background-color: #495057;
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #c48a55;
+            color: #fff;
         }
+
         .content {
             flex-grow: 1;
             padding: 30px;
+            background-color: #fffaf2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
+
         footer {
             text-align: center;
-            padding: 10px;
-            color: #777;
-            border-top: 1px solid #ddd;
-            margin-top: 40px;
+            padding: 12px;
+            color: #4b2e14;
+            border-top: 1px solid #e0c9a6;
+            margin-top: auto;
+            background-color: #f8e6cc;
+            font-size: 14px;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
         }
     </style>
+
 </head>
 
 <body>
     <div class="sidebar">
-        <h3>CatAdopt & Care</h3>
+        <h3>PawPac</h3>
         <p class="text-center small mb-3">Halo, {{ auth()->user()->name ?? 'Admin' }}</p>
-        <a href="{{ route('admin.dashboard') }}" class="active">🐾 Halaman Utama</a>
-        <a href="{{ route('admin.adopter.index') }}" class="active">🐾 Data Adopter</a>
+        <a href="{{ route('admin.dashboard') }}" class="active"> Halaman Utama</a>
+        <a href="{{ route('admin.adopter.index') }}" class="active"> Data Adopter</a>
+        <a href="{{ route('admin.materi.index') }}" class="active"> Data Materi</a>
+
         <div class="mt-auto">
-            <a href="{{ route('logout') }}" class="text-danger">🚪 Logout</a>
+            <a href="{{ route('logout') }}" class="text-danger"> Logout</a>
         </div>
     </div>
 

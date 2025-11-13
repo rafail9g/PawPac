@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login CatAdopt</title>
+    <title>Registrasi CatAdopt</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fff0dc, #ffe8c2);
+            background: linear-gradient(135deg, #fff4e2, #ffe7c1);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,7 +23,7 @@
             padding: 30px 40px;
             border-radius: 16px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            width: 320px;
+            width: 340px;
             text-align: left;
         }
         label {
@@ -87,27 +87,29 @@
 </head>
 <body>
     <div class="header-box">PawPac</div>
-    <h1>Login</h1>
-
-    @if(session('success'))
-        <div class="message" style="color:green;">{{ session('success') }}</div>
-    @endif
+    <h1>Registrasi</h1>
 
     @if($errors->any())
         <div class="message" style="color:red;">{{ $errors->first() }}</div>
     @endif
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('register') }}">
         @csrf
+        <label>Nama Lengkap:</label><br>
+        <input type="text" name="name" required><br>
+
         <label>Email:</label><br>
         <input type="email" name="email" required><br>
 
         <label>Password:</label><br>
         <input type="password" name="password" required><br>
 
-        <button type="submit">Login</button>
+        <label>Konfirmasi Password:</label><br>
+        <input type="password" name="password_confirmation" required><br>
+
+        <button type="submit">Daftar</button>
     </form>
 
-    <p>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></p>
+    <p>Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
 </body>
 </html>
