@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdopterController;
 use App\Http\Controllers\MateriController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\KucingController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -35,4 +36,17 @@ Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
     Route::get('/adopter', function () {
         return view('adopter');
     })->name('adopter.dashboard');
+});
+
+
+
+Route::middleware([RoleMiddleware::class . ':provider'])->group(function () {
+    Route::get('/provider', function () {
+        return view('dashboardprovider');
+    })->name('provider.dashboard');
+
+    Route::get('/provider/kucing', [KucingController::class, 'index'])->name('provider.kucing.index');
+    Route::post('/provider/kucing', [KucingController::class, 'store'])->name('provider.kucing.store');
+    Route::put('/provider/kucing/{id}', [KucingController::class, 'update'])->name('provider.kucing.update');
+    Route::delete('/provider/kucing/{id}', [KucingController::class, 'destroy'])->name('provider.kucing.destroy');
 });
