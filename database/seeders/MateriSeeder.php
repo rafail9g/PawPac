@@ -13,14 +13,12 @@ class MateriSeeder extends Seeder
             'judul' => 'Cara Memandikan Kucing dengan Aman',
             'isi' => 'Gunakan air hangat dan sampo khusus kucing. Hindari area telinga dan mata agar tidak iritasi.',
             'kategori' => 'Perawatan Dasar',
-            'gambar' => 'https://example.com/img/memandikan-kucing.jpg',
         ]);
 
         Materi::create([
             'judul' => 'Tips Menyisir Bulu Kucing Agar Tidak Rontok',
             'isi' => 'Sisir bulu kucing setiap hari menggunakan sisir logam bergigi jarang untuk mengurangi kerontokan.',
             'kategori' => 'Perawatan Bulu',
-            'gambar' => 'https://example.com/img/menyisir-bulu.jpg',
         ]);
     }
 }

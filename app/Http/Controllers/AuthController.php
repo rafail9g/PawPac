@@ -52,6 +52,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'adopter',
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'living_environment' => $request->living_environment,
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');

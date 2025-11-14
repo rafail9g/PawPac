@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Adopter;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,8 +10,8 @@ class AdopterController extends Controller
 {
     public function index()
     {
-    $adopters = \App\Models\Pengguna::where('role', 'adopter')->get();
-        return view('dataadopter', compact('adopters')); // ubah di sini
+        $adopters = Pengguna::where('role', 'adopter')->get();
+        return view('dataadopter', compact('adopters'));
     }
 
     public function create()
@@ -23,14 +23,14 @@ class AdopterController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:pengguna',
+            'email' => 'required|email|unique:pengguna,email',
             'password' => 'required|min:6',
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
             'living_environment' => 'nullable|string',
         ]);
 
-        Adopter::create([
+        Pengguna::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -45,29 +45,48 @@ class AdopterController extends Controller
 
     public function edit($id)
     {
-        $adopter = Adopter::findOrFail($id);
-        return view('adopter_edit', compact('adopters'));
+        $adopter = Pengguna::findOrFail($id);
+        return view('adopter_edit', compact('adopter'));
     }
 
     public function update(Request $request, $id)
     {
-        $adopter = Adopter::findOrFail($id);
+        $adopter = Pengguna::findOrFail($id);
 
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:pengguna,email,' . $id,
         ]);
 
-        $adopter->update($request->all());
+        $adopter->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'living_environment' => $request->living_environment,
+        ]);
 
         return redirect()->route('admin.adopter.index')->with('success', 'Data adopter berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
-        $adopter = Adopter::findOrFail($id);
+        $adopter = Pengguna::findOrFail($id);
         $adopter->delete();
 
         return redirect()->route('admin.adopter.index')->with('success', 'Adopter berhasil dihapus!');
     }
+
+    public function getJson($id)
+    {
+        $adopter = \App\Models\Pengguna::find($id);
+
+        if (!$adopter) {
+            return response()->json(['error' => 'Adopter tidak ditemukan'], 404);
+        }
+
+        return response()->json($adopter);
+    }
+
+
 }

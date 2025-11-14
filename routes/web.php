@@ -16,18 +16,22 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('/admin', function () {
         return view('dashboardadmin');
     })->name('admin.dashboard');
+
+    // ✅ CRUD Adopter
     Route::get('/dataadopter', [AdopterController::class, 'index'])->name('admin.adopter.index');
     Route::get('/dataadopter/create', [AdopterController::class, 'create'])->name('admin.adopter.create');
     Route::post('/dataadopter', [AdopterController::class, 'store'])->name('admin.adopter.store');
-    Route::get('/dataadopter/{id}/edit', [AdopterController::class, 'edit'])->name('admin.adopter.edit');
-    Route::put('/dataadopter/{id}', [AdopterController::class, 'update'])->name('admin.adopter.update');
-    Route::delete('/dataadopter/{id}', [AdopterController::class, 'destroy'])->name('admin.adopter.destroy');
+    Route::get('/admin/adopter/{id}/json', [AdopterController::class, 'getJson'])->name('admin.adopter.json');
+    Route::put('/admin/adopter/{id}', [AdopterController::class, 'update'])->name('admin.adopter.update');
+    Route::delete('/admin/adopter/{id}', [AdopterController::class, 'destroy'])->name('admin.adopter.destroy');
+
+    // ✅ CRUD Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('admin.materi.index');
     Route::get('/materi/create', [MateriController::class, 'create'])->name('admin.materi.create');
     Route::post('/materi', [MateriController::class, 'store'])->name('admin.materi.store');
-    Route::get('/materi/{id}/edit', [MateriController::class, 'edit'])->name('admin.materi.edit');
-    Route::put('/materi/{id}', [MateriController::class, 'update'])->name('admin.materi.update');
-    Route::delete('/materi/{id}', [MateriController::class, 'destroy'])->name('admin.materi.destroy');
+    Route::get('admin/materi/{id}/json', [MateriController::class, 'getJson'])->name('admin.materi.json');
+    Route::put('admin/materi/{id}', [MateriController::class, 'update'])->name('admin.materi.update');
+    Route::delete('admin/materi/{id}', [MateriController::class, 'destroy'])->name('admin.materi.destroy');
 
 });
 

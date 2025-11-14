@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('judul');
             $table->text('isi');
             $table->string('kategori')->nullable();
-            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }

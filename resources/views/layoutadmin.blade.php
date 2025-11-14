@@ -57,6 +57,7 @@
             min-height: 100vh;
         }
 
+
         footer {
             text-align: center;
             padding: 12px;
@@ -80,16 +81,12 @@
         <a href="{{ route('admin.materi.index') }}" class="active"> Data Materi</a>
 
         <div class="mt-auto">
-            <a href="{{ route('logout') }}" class="text-danger"> Logout</a>
+            <a href="{{ route('login') }}" class="text-danger"> Logout</a>
         </div>
     </div>
 
     <div class="content">
         @yield('content')
-
-        <footer>
-            <small>&copy; 2025 CatAdopt & Care. Semua hak dilindungi.</small>
-        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
