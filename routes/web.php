@@ -34,7 +34,7 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
 
 Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
     Route::get('/adopter', function () {
-        return view('adopter');
+        return view('dashboardadopter');
     })->name('adopter.dashboard');
 });
 
