@@ -78,6 +78,7 @@
 
         <a href="{{ route('provider.dashboard') }}" class="{{ request()->routeIs('provider.dashboard') ? 'active' : '' }}">Halaman Utama</a>
         <a href="{{ route('provider.kucing.index') }}" class="{{ request()->routeIs('provider.kucing.*') ? 'active' : '' }}">Data Kucing</a>
+        <a href="{{ route('provider.adoption.list') }}" class="{{ request()->routeIs('provider.adoption.*') ? 'active' : '' }}">Nilai Jawaban</a>
 
         <div class="mt-auto">
             <a href="{{ route('logout') }}" class="text-danger">Logout</a>

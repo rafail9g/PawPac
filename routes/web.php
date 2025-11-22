@@ -6,6 +6,9 @@ use App\Http\Controllers\AdopterController;
 use App\Http\Controllers\MateriController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\KucingController;
+use App\Http\Controllers\AdoptController;
+use App\Http\Controllers\ProviderAdoptController;
+
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -37,10 +40,24 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
 });
 
 Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
+
     Route::get('/adopter', function () {
         return view('dashboardadopter');
     })->name('adopter.dashboard');
+
+    Route::get('/adopter/pilih', [AdoptController::class, 'pilihKucing'])
+        ->name('adopter.pilih');
+
+    Route::get('/adopter/quiz/{kucing_id}', [AdoptController::class, 'mulaiQuiz'])
+        ->name('adopter.quiz');
+
+    Route::post('/adopter/quiz/{kucing_id}', [AdoptController::class, 'submitQuiz'])
+        ->name('adopter.quiz.submit');
+
+    Route::get('/adopter/status', [AdoptController::class, 'status'])
+        ->name('adopter.status');
 });
+
 
 
 
@@ -53,4 +70,7 @@ Route::middleware([RoleMiddleware::class . ':provider'])->group(function () {
     Route::post('/provider/kucing', [KucingController::class, 'store'])->name('provider.kucing.store');
     Route::put('/provider/kucing/{id}', [KucingController::class, 'update'])->name('provider.kucing.update');
     Route::delete('/provider/kucing/{id}', [KucingController::class, 'destroy'])->name('provider.kucing.destroy');
+    Route::get('/provider/adoption', [ProviderAdoptController::class, 'index'])->name('provider.adoption.list');
+    Route::get('/provider/adoption/{id}', [ProviderAdoptController::class, 'review'])->name('provider.adoption.review');
+    Route::post('/provider/adoption/{id}/nilai', [ProviderAdoptController::class, 'nilai'])->name('provider.nilai');
 });

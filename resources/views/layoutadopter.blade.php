@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'PawPac Provider')</title>
+    <title>@yield('title', 'PawPac Adopter')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -76,9 +76,20 @@
         <h3>PawPac</h3>
         <p class="text-center small mb-3">Halo, {{ auth()->user()->name ?? 'Adopter' }}</p>
 
-        <a href="{{ route('adopter.dashboard') }}" class="{{ request()->routeIs('provider.dashboard') ? 'active' : '' }}">Halaman Utama</a>
-        {{-- <a href="{{ route('provider.kucing.index') }}" class="{{ request()->routeIs('provider.kucing.*') ? 'active' : '' }}">Data Kucing</a> --}}
+        <a href="{{ route('adopter.dashboard') }}"
+           class="{{ request()->routeIs('adopter.dashboard') ? 'active' : '' }}">
+           Halaman Utama
+        </a>
 
+        <a href="{{ route('adopter.pilih') }}"
+        class="{{ request()->routeIs('adopter.pilihkucing') ? 'active' : '' }}">
+        Test
+        </a>
+
+        <a href="{{ route('adopter.status') }}"
+        class="{{ request()->routeIs('adopter.') ? 'active' : '' }}">
+        History Test
+        </a>
         <div class="mt-auto">
             <a href="{{ route('logout') }}" class="text-danger">Logout</a>
         </div>
@@ -88,7 +99,7 @@
         @yield('content')
 
         <footer>
-            <small>&copy; 2025 CatAdopt & Care — Dashboard Provider</small>
+            <small>&copy; 2025 CatAdopt & Care — Dashboard Adopter</small>
         </footer>
     </div>
 
