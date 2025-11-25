@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Registrasi CatAdopt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -29,14 +31,15 @@
         label {
             font-weight: bold;
             color: #4b2e14;
+            display: block;
+            margin-bottom: 5px;
         }
         input {
             width: 100%;
-            padding: 8px;
+            padding: 8px 40px 8px 8px; /* padding kanan untuk ikon */
             border-radius: 8px;
             border: 1px solid #cfa97e;
-            margin-top: 5px;
-            margin-bottom: 15px;
+            box-sizing: border-box;
         }
         input:focus {
             outline: none;
@@ -53,6 +56,7 @@
             width: 100%;
             font-weight: bold;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #ad7340;
@@ -83,33 +87,89 @@
             font-weight: bold;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #8b6f4e;
+            z-index: 10;
+        }
+
+        .toggle-password:hover {
+            color: #6b5030;
+        }
     </style>
 </head>
 <body>
     <div class="header-box">PawPac</div>
     <h1>Registrasi</h1>
 
-    @if($errors->any())
-        <div class="message" style="color:red;">{{ $errors->first() }}</div>
-    @endif
+    <form method="POST" action="/register">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <label>Nama Lengkap:</label><br>
-        <input type="text" name="name" required><br>
+        <label>Nama Lengkap:</label>
+        <input type="text" name="name" required value="{{ old('name') }}">
+        @error('name')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br>
+        <label>Email:</label>
+        <input type="email" name="email" required value="{{ old('email') }}">
+        @error('email')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br>
+        <label>Password:</label>
+        <div class="input-wrapper">
+            <input type="password" name="password" id="password" required placeholder="Minimal 6 karakter">
+            <span class="toggle-password" onclick="togglePassword('password')">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
+        @error('password')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
 
-        <label>Konfirmasi Password:</label><br>
-        <input type="password" name="password_confirmation" required><br>
+        <label>Konfirmasi Password:</label>
+        <div class="input-wrapper">
+            <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="Ulangi password">
+            <span class="toggle-password" onclick="togglePassword('password_confirmation')">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
+        @error('password_confirmation')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
 
         <button type="submit">Daftar</button>
     </form>
 
     <p>Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
+
+    <script>
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            const icon = input.nextElementSibling.querySelector('i');
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -15,14 +15,14 @@
             <div class="col-md-4 mb-4">
                 <div class="card shadow-sm border-0 rounded-4">
 
-                    <img src="{{ asset('storage/' . $k->gambar) }}"
+                    <img src="{{ asset('storage/' . $k->image) }}"
                         class="card-img-top rounded-top-4"
                         style="height: 220px; object-fit: cover;">
 
                     <div class="card-body text-center">
 
                         <h5 class="fw-bold">{{ $k->nama }}</h5>
-                        <p class="text-muted small">{{ $k->ras ?? '-' }}</p>
+                        <p class="text-muted small">{{ $k->breed ?? '-' }}</p>
 
                         {{-- ====== CEK STATUS ADOPTED ====== --}}
                         @if($k->status === 'adopted')

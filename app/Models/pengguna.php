@@ -25,4 +25,8 @@ class Pengguna extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
 }

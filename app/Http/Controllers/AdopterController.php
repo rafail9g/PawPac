@@ -79,7 +79,8 @@ class AdopterController extends Controller
 
     public function getJson($id)
     {
-        $adopter = \App\Models\Pengguna::find($id);
+        $adopter = Pengguna::find($id);
+        // $adopter = \App\Models\Pengguna::find($id);
 
         if (!$adopter) {
             return response()->json(['error' => 'Adopter tidak ditemukan'], 404);

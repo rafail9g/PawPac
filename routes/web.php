@@ -10,6 +10,10 @@ use App\Http\Controllers\AdoptController;
 use App\Http\Controllers\ProviderAdoptController;
 
 
+Route::get('/', function () {
+    return view('dashboardadopter');
+})->name('adopter.dashboard');
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
