@@ -4,7 +4,6 @@
 
 <div class="container mt-4">
 
-    {{-- ====== MODE PILIH KUCING ====== --}}
     @if(isset($kucingList))
 
         <h2 class="mb-4 text-center fw-bold">Pilih Kucing untuk Diadopsi</h2>
@@ -24,7 +23,6 @@
                         <h5 class="fw-bold">{{ $k->nama }}</h5>
                         <p class="text-muted small">{{ $k->breed ?? '-' }}</p>
 
-                        {{-- ====== CEK STATUS ADOPTED ====== --}}
                         @if($k->status === 'adopted')
                             <button class="btn btn-danger w-100 mt-2" disabled>
                                 Adopted
@@ -45,7 +43,6 @@
                 </div>
             </div>
 
-            {{-- Modal --}}
             <div class="modal fade" id="modal{{ $k->id }}" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-4">
@@ -64,7 +61,6 @@
 
                         <div class="modal-footer justify-content-center">
 
-                            {{-- Tombol dalam modal --}}
                             @if($k->status === 'adopted')
                                 <button class="btn btn-danger px-4" disabled>
                                     Kucing Sudah Diadopsi
@@ -94,7 +90,6 @@
 
 
 
-    {{-- ====== MODE QUIZ (TETAP ADA, TIDAK DIHAPUS) ====== --}}
     @if(isset($kucing) && isset($soal))
 
         <h2 class="mb-4 fw-bold text-center">
@@ -109,7 +104,6 @@
                     <div class="card-body">
                         <h5 class="fw-bold mb-3">{{ $s->pertanyaan }}</h5>
 
-                        {{-- TIPE ISIAN --}}
                         @if($s->tipe_soal === 'isian')
                             <textarea class="form-control"
                                     name="jawaban_{{ $s->id }}"
@@ -117,7 +111,6 @@
                                     placeholder="Tulis jawaban Anda di sini..."
                                     required></textarea>
 
-                        {{-- TIPE PILIHAN --}}
                         @elseif($s->tipe_soal === 'pilihan')
                             @foreach(['a','b','c','d'] as $opsi)
                                 @if($s->{'opsi_'.$opsi})

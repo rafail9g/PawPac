@@ -36,7 +36,7 @@
         }
         input {
             width: 100%;
-            padding: 8px 40px 8px 8px; /* padding kanan untuk ikon */
+            padding: 8px 40px 8px 8px;
             border-radius: 8px;
             border: 1px solid #cfa97e;
             box-sizing: border-box;
@@ -125,6 +125,24 @@
         <label>Email:</label>
         <input type="email" name="email" required value="{{ old('email') }}">
         @error('email')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
+
+        <label>Alamat Lengkap:</label>
+        <input type="text" name="address" required value="{{ old('address') }}">
+        @error('address')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
+
+        <label>Nomor Telepon:</label>
+        <input type="text" name="phone" required value="{{ old('phone') }}">
+        @error('phone')
+            <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
+        @enderror
+
+        <label>Lingkungan Tempat Tinggal:</label>
+        <input type="text" name="living_environment" required placeholder="Misal: Rumah dengan halaman luas" value="{{ old('living_environment') }}">
+        @error('living_environment')
             <div style="color:red; font-size:12px; margin-top:-10px; margin-bottom:10px;">{{ $message }}</div>
         @enderror
 

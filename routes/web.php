@@ -8,42 +8,25 @@ use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\KucingController;
 use App\Http\Controllers\AdoptController;
 use App\Http\Controllers\ProviderAdoptController;
+use App\Http\Controllers\HistoryAdoptController;
+use App\Http\Controllers\AdoptionAdminController;
 
 
-/*
-|--------------------------------------------------------------------------
-| PUBLIC ROUTES (TANPA LOGIN)
-|--------------------------------------------------------------------------
-*/
-
-// 👉 Landing page (halaman awal)
 Route::get('/', function () {
     return view('landingpage');
 })->name('landingpage');
-
-// 👉 Auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-
-/*
-|--------------------------------------------------------------------------
-| ADMIN ROUTES
-|--------------------------------------------------------------------------
-*/
 Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
-
     Route::get('/admin', function () {
         return view('dashboardadmin');
     })->name('admin.dashboard');
-
-    // CRUD Adopter
     Route::get('/dataadopter', [AdopterController::class, 'index'])->name('admin.adopter.index');
     Route::get('/dataadopter/create', [AdopterController::class, 'create'])->name('admin.adopter.create');
     Route::post('/dataadopter', [AdopterController::class, 'store'])->name('admin.adopter.store');
@@ -51,22 +34,29 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::put('/admin/adopter/{id}', [AdopterController::class, 'update'])->name('admin.adopter.update');
     Route::delete('/admin/adopter/{id}', [AdopterController::class, 'destroy'])->name('admin.adopter.destroy');
 
-    // CRUD Materi
     Route::get('/materi', [MateriController::class, 'index'])->name('admin.materi.index');
     Route::get('/materi/create', [MateriController::class, 'create'])->name('admin.materi.create');
     Route::post('/materi', [MateriController::class, 'store'])->name('admin.materi.store');
     Route::get('/admin/materi/{id}/json', [MateriController::class, 'getJson'])->name('admin.materi.json');
     Route::put('/admin/materi/{id}', [MateriController::class, 'update'])->name('admin.materi.update');
     Route::delete('/admin/materi/{id}', [MateriController::class, 'destroy'])->name('admin.materi.destroy');
+
+    Route::get('/history', [HistoryAdoptController::class, 'index'])->name('admin.history.index');
+    Route::get('/admin/history/{id}/json', [HistoryAdoptController::class, 'getJson'])->name('admin.history.json');
+    Route::put('/admin/history/{id}', [HistoryAdoptController::class, 'update'])->name('admin.history.update');
+    Route::delete('/admin/history/{id}', [HistoryAdoptController::class, 'destroy'])->name('admin.history.destroy');
+
+    Route::get('/adopsi', [AdoptionAdminController::class, 'index'])->name('admin.adopsi.index');
+    Route::get('/admin/adopsi/{id}/json', [AdoptionAdminController::class, 'getJson'])->name('admin.adopsi.json');
+    Route::put('/admin/adopsi/{id}', [AdoptionAdminController::class, 'update'])->name('admin.adopsi.update');
+    Route::delete('/admin/adopsi/{id}', [AdoptionAdminController::class, 'destroy'])->name('admin.adopsi.destroy');
+    Route::post('/admin/adopsi/{id}/status', [AdoptionAdminController::class, 'updateStatus'])->name('admin.adopsi.status');
+
+    Route::get('/admin/adopsi/adopters', [AdoptionAdminController::class, 'getAdopters']);
+    Route::get('/admin/adopsi/kucing', [AdoptionAdminController::class, 'getKucing']);
 });
 
 
-
-/*
-|--------------------------------------------------------------------------
-| ADOPTER ROUTES
-|--------------------------------------------------------------------------
-*/
 Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
 
     Route::get('/adopter', function () {
@@ -87,12 +77,6 @@ Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
 });
 
 
-
-/*
-|--------------------------------------------------------------------------
-| PROVIDER ROUTES
-|--------------------------------------------------------------------------
-*/
 Route::middleware([RoleMiddleware::class . ':provider'])->group(function () {
 
     Route::get('/provider', function () {

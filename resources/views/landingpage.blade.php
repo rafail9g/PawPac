@@ -13,7 +13,6 @@
             color: #4b2e14;
         }
 
-        /* NAVBAR */
         .navbar-custom {
             background-color: #f8e6cc;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
@@ -26,7 +25,6 @@
             color: #c48a55 !important;
         }
 
-        /* NAV LINK */
         .nav-link {
             color: #4b2e14 !important;
             font-weight: 500;
@@ -40,7 +38,6 @@
             color: #c48a55 !important;
         }
 
-        /* BUTTON UTAMA */
         .btn-highlight {
             background-color: #c48a55;
             color: white !important;
@@ -53,7 +50,6 @@
             background-color: #a16c3e;
         }
 
-        /* HERO */
         .hero {
             background: url('https://i.imgur.com/zAa2ePX.png');
             background-size: cover;
@@ -73,7 +69,6 @@
             margin-top: 10px;
         }
 
-        /* GRID IMAGE */
         .pet-card img {
             height: 240px;
             object-fit: cover;
@@ -85,10 +80,9 @@
 
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="/">🐾 PawPac</a>
+            <a class="navbar-brand" href="/">PawPac</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
@@ -114,13 +108,11 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <section class="hero">
         <h1>Selamat datang di PawPac</h1>
-        <p>"Satu langkah kecil dari Anda, kehidupan baru untuk mereka." 🐾</p>
+        <p>"Satu langkah kecil dari Anda, kehidupan baru untuk mereka."</p>
     </section>
 
-    <!-- GRID FOTO -->
     <div class="container py-5" id="dok">
         <h3 class="fw-bold mb-4 text-center">Hewan yang Berhasil Diselamatkan</h3>
 
@@ -153,7 +145,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="text-center py-3 bg-light">
         <small>&copy; 2025 PawPac — Semua Hak Dilindungi.</small>
     </footer>

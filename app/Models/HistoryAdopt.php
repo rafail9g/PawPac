@@ -17,7 +17,7 @@ class HistoryAdopt extends Model
 
     public function adopsi()
     {
-        return $this->belongsTo(Adopsi::class);
+        return $this->belongsTo(Adoption::class);
     }
 }
 

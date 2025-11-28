@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-// ⬇ Tambahkan ini di sini
+use App\Models\History;
 use App\Models\Kucing;
-use App\Models\Pengguna;   // atau User kalau model user kamu namanya User
-
+use App\Models\Pengguna;
 class Adoption extends Model
 {
     use HasFactory;

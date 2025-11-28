@@ -24,13 +24,11 @@ class AdoptController extends Controller
     {
         $kucing = Kucing::findOrFail($kucing_id);
 
-        // ❗ CEK apakah kucing sudah diadopsi
         if ($kucing->status === 'adopted') {
             return redirect()->route('adopter.pilih')
                 ->with('error', 'Kucing ini sudah diadopsi dan tidak bisa diikuti tes.');
         }
 
-        // ❗ CEK apakah user sudah ikut tes untuk kucing ini
         $existing = Adoption::where('adopter_id', auth()->id())
             ->where('kucing_id', $kucing_id)
             ->whereIn('status', ['pending', 'lulus'])
@@ -52,7 +50,6 @@ class AdoptController extends Controller
 
     public function submitQuiz(Request $request, $kucing_id)
     {
-        // Cek apakah kucing masih available
         $kucing = Kucing::findOrFail($kucing_id);
 
         if ($kucing->status !== 'available') {
@@ -63,7 +60,6 @@ class AdoptController extends Controller
         $soal = QuizSoal::all();
         $totalNilai = 0;
 
-        // Buat data adopsi dulu
         $adopsi = Adoption::create([
             'adopter_id' => auth()->id(),
             'kucing_id' => $kucing_id,

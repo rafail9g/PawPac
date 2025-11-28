@@ -6,6 +6,7 @@ use App\Models\Kucing;
 use App\Models\QuizSoal;
 use App\Models\Adoption;
 use App\Models\QuizJawaban;
+use App\Models\HistoryAdopt;
 use Illuminate\Http\Request;
 
 class ProviderAdoptController extends Controller
@@ -33,13 +34,11 @@ class ProviderAdoptController extends Controller
 
         foreach ($adopsi->jawaban as $j) {
 
-            // kalau PG sudah otomatis dinilai
             if ($j->soal->tipe == "pg") {
                 if ($j->is_correct) $total++;
                 continue;
             }
 
-            // kalau isian → provider nilai manual
             $j->is_correct = $request->input("nilai_$j->id");
             $j->save();
 
@@ -47,21 +46,29 @@ class ProviderAdoptController extends Controller
         }
 
         $adopsi->status = $request->status;
+        $adopsi->nilai_quiz = $total;
         $adopsi->save();
 
-        // --- Jika diterima, ubah status kucing jadi unavailable ---
+        HistoryAdopt::create([
+            'adopsi_id' => $adopsi->id,
+            'catatan' => 'Penilaian oleh provider pada ' . now()->format('d M Y H:i'),
+            'status' => $request->status
+        ]);
+
         if ($request->status === 'lulus') {
             $kucing = Kucing::find($adopsi->kucing_id);
             if ($kucing) {
-                $kucing->status = 'unavailable';
+                $kucing->status = 'adopted';
                 $kucing->save();
             }
+
+            Adoption::where('kucing_id', $adopsi->kucing_id)
+                ->where('id', '!=', $adopsi->id)
+                ->where('status', 'pending')
+                ->update(['status' => 'tidak_lulus']);
         }
 
-
         return redirect('/provider/adoption')
-            ->with('success', 'Penilaian berhasil disimpan.');
-
+            ->with('success', 'Penilaian berhasil disimpan dan history tercatat.');
     }
-
 }
