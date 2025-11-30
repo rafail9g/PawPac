@@ -16,8 +16,6 @@ class QuizSoal extends Model
         'opsi_d',
         'tipe',
         'jawaban_benar',
+        'tipe_soal',
     ];
 }
-
-
-

@@ -10,6 +10,7 @@ use App\Http\Controllers\AdoptController;
 use App\Http\Controllers\ProviderAdoptController;
 use App\Http\Controllers\HistoryAdoptController;
 use App\Http\Controllers\AdoptionAdminController;
+use App\Http\Controllers\QuizAdminController;
 
 
 Route::get('/', function () {
@@ -52,6 +53,12 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
     Route::delete('/admin/adopsi/{id}', [AdoptionAdminController::class, 'destroy'])->name('admin.adopsi.destroy');
     Route::post('/admin/adopsi/{id}/status', [AdoptionAdminController::class, 'updateStatus'])->name('admin.adopsi.status');
 
+    Route::get('/quiz', [QuizAdminController::class, 'index'])->name('admin.quiz.index');
+    Route::post('/quiz', [QuizAdminController::class, 'store'])->name('admin.quiz.store');
+    Route::get('/quiz/{id}/json', [QuizAdminController::class, 'getJson'])->name('admin.quiz.getJson');
+    Route::put('/quiz/{id}', [QuizAdminController::class, 'update'])->name('admin.quiz.update');
+    Route::delete('/quiz/{id}', [QuizAdminController::class, 'destroy'])->name('admin.quiz.destroy');
+
     Route::get('/admin/adopsi/adopters', [AdoptionAdminController::class, 'getAdopters']);
     Route::get('/admin/adopsi/kucing', [AdoptionAdminController::class, 'getKucing']);
 });
@@ -74,6 +81,11 @@ Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
 
     Route::get('/adopter/status', [AdoptController::class, 'status'])
         ->name('adopter.status');
+
+    Route::get('/adopter/materi', function () {
+        $materi = \App\Models\Materi::all();
+        return view('adoptermateri', compact('materi'));
+    })->name('adopter.materi');
 });
 
 

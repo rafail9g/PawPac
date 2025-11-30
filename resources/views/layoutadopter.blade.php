@@ -81,6 +81,11 @@
            Halaman Utama
         </a>
 
+        <a href="{{ route('adopter.materi') }}"
+           class="{{ request()->routeIs('adopter.materi') ? 'active' : '' }}">
+           Materi
+        </a>
+
         <a href="{{ route('adopter.pilih') }}"
         class="{{ request()->routeIs('adopter.pilihkucing') ? 'active' : '' }}">
         Test

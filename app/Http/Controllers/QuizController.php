@@ -5,43 +5,84 @@ namespace App\Http\Controllers;
 use App\Models\QuizSoal;
 use Illuminate\Http\Request;
 
-class QuizController extends Controller
+class QuizAdminController extends Controller
 {
     public function index()
     {
         $soal = QuizSoal::all();
-        return view('quiz', compact('soal'));
+        return view('admin.quiz', compact('soal'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'pertanyaan' => 'required',
-            'opsi_a' => 'required',
-            'opsi_b' => 'required',
-            'opsi_c' => 'required',
-            'opsi_d' => 'required',
-            'jawaban_benar' => 'required'
+            'pertanyaan' => 'required|string',
+            'tipe' => 'required|in:pg,isian',
+            'opsi_a' => 'required_if:tipe,pg',
+            'opsi_b' => 'required_if:tipe,pg',
+            'opsi_c' => 'required_if:tipe,pg',
+            'opsi_d' => 'required_if:tipe,pg',
+            'jawaban_benar' => 'required_if:tipe,pg',
         ]);
 
-        QuizSoal::create($request->all());
+        QuizSoal::create([
+            'pertanyaan' => $request->pertanyaan,
+            'tipe' => $request->tipe,
+            'opsi_a' => $request->tipe == 'pg' ? $request->opsi_a : null,
+            'opsi_b' => $request->tipe == 'pg' ? $request->opsi_b : null,
+            'opsi_c' => $request->tipe == 'pg' ? $request->opsi_c : null,
+            'opsi_d' => $request->tipe == 'pg' ? $request->opsi_d : null,
+            'jawaban_benar' => $request->tipe == 'pg' ? $request->jawaban_benar : null,
+            'tipe_soal' => $request->tipe == 'pg' ? 'pilihan' : 'isian',
+        ]);
 
-        return back()->with('success', 'Soal berhasil ditambahkan');
+        return redirect()->route('admin.quiz.index')->with('success', 'Soal berhasil ditambahkan!');
+    }
+
+    public function getJson($id)
+    {
+        $soal = QuizSoal::find($id);
+
+        if (!$soal) {
+            return response()->json(['error' => 'Soal tidak ditemukan'], 404);
+        }
+
+        return response()->json($soal);
     }
 
     public function update(Request $request, $id)
     {
         $soal = QuizSoal::findOrFail($id);
 
-        $soal->update($request->all());
+        $request->validate([
+            'pertanyaan' => 'required|string',
+            'tipe' => 'required|in:pg,isian',
+            'opsi_a' => 'required_if:tipe,pg',
+            'opsi_b' => 'required_if:tipe,pg',
+            'opsi_c' => 'required_if:tipe,pg',
+            'opsi_d' => 'required_if:tipe,pg',
+            'jawaban_benar' => 'required_if:tipe,pg',
+        ]);
 
-        return back()->with('success', 'Soal berhasil diupdate');
+        $soal->update([
+            'pertanyaan' => $request->pertanyaan,
+            'tipe' => $request->tipe,
+            'opsi_a' => $request->tipe == 'pg' ? $request->opsi_a : null,
+            'opsi_b' => $request->tipe == 'pg' ? $request->opsi_b : null,
+            'opsi_c' => $request->tipe == 'pg' ? $request->opsi_c : null,
+            'opsi_d' => $request->tipe == 'pg' ? $request->opsi_d : null,
+            'jawaban_benar' => $request->tipe == 'pg' ? $request->jawaban_benar : null,
+            'tipe_soal' => $request->tipe == 'pg' ? 'pilihan' : 'isian',
+        ]);
+
+        return redirect()->route('admin.quiz.index')->with('success', 'Soal berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
-        QuizSoal::findOrFail($id)->delete();
+        $soal = QuizSoal::findOrFail($id);
+        $soal->delete();
 
-        return back()->with('success', 'Soal berhasil dihapus');
+        return redirect()->route('admin.quiz.index')->with('success', 'Soal berhasil dihapus!');
     }
 }

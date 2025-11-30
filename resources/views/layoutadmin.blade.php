@@ -79,7 +79,7 @@
         <a href="{{ route('admin.dashboard') }}" class="active"> Halaman Utama</a>
         <a href="{{ route('admin.adopter.index') }}" class="active"> Data Adopter</a>
         <a href="{{ route('admin.materi.index') }}" class="active"> Data Materi</a>
-        {{-- <a href="{{ route('admin.quiz.index') }}" class="active"> Data Quiz</a> --}}
+        <a href="{{ route('admin.quiz.index') }}" class="active"> Data Quiz</a>
         <a href="{{ route('admin.history.index') }}" class="active"> Data History Adopsi</a>
         <a href="{{ route('admin.adopsi.index') }}" class="active">Data Pengajuan</a>
         <div class="mt-auto">
