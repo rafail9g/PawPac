@@ -19,5 +19,7 @@ class HistoryAdopt extends Model
     {
         return $this->belongsTo(Adoption::class);
     }
+
+
 }
 

@@ -29,4 +29,14 @@ class Pengguna extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function adoptions()
+    {
+        return $this->hasMany(Adoption::class, 'adopter_id');
+    }
+
+    public function kucingProvider()
+    {
+        return $this->hasMany(Kucing::class, 'provider_id');
+    }
 }

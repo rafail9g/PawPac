@@ -20,4 +20,15 @@ class kucing extends Model
         'image',
         'status',
     ];
+
+    public function provider()
+    {
+        return $this->belongsTo(Pengguna::class, 'provider_id');
+    }
+
+    // Relasi: Kucing memiliki banyak adoption
+    public function adoptions()
+    {
+        return $this->hasMany(Adoption::class, 'kucing_id');
+    }
 }

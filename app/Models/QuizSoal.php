@@ -18,4 +18,9 @@ class QuizSoal extends Model
         'jawaban_benar',
         'tipe_soal',
     ];
+
+    public function jawaban()
+    {
+        return $this->hasMany(QuizJawaban::class, 'soal_id');
+    }
 }

@@ -46,8 +46,6 @@ class AdoptController extends Controller
         ]);
     }
 
-
-
     public function submitQuiz(Request $request, $kucing_id)
     {
         $kucing = Kucing::findOrFail($kucing_id);
@@ -58,6 +56,27 @@ class AdoptController extends Controller
         }
 
         $soal = QuizSoal::all();
+
+        foreach ($soal as $s) {
+            $inputName = "jawaban_$s->id";
+
+            if ($s->tipe == "isian") {
+                $jawaban = $request->input($inputName);
+
+                if (!preg_match('/^[a-zA-Z0-9\s,.\-]+$/u', $jawaban)) {
+                    return back()->withErrors([
+                        $inputName => 'Jawaban isian hanya boleh mengandung huruf, angka, spasi, koma, titik, dan tanda hubung.'
+                    ])->withInput();
+                }
+
+                if (strlen(trim($jawaban)) < 10) {
+                    return back()->withErrors([
+                        $inputName => 'Jawaban isian minimal 10 karakter.'
+                    ])->withInput();
+                }
+            }
+        }
+
         $totalNilai = 0;
 
         $adopsi = Adoption::create([
@@ -68,7 +87,6 @@ class AdoptController extends Controller
         ]);
 
         foreach ($soal as $s) {
-
             $inputName = "jawaban_$s->id";
             $jawabanUser = $request->input($inputName);
 
@@ -91,7 +109,6 @@ class AdoptController extends Controller
         return redirect()->route('adopter.status')
             ->with('success', 'Tes selesai! Jawaban isian sedang menunggu verifikasi provider.');
     }
-
 
     public function status()
     {

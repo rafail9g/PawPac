@@ -348,19 +348,28 @@
 
 <script>
 function selectType(type, context) {
-    const options = document.querySelectorAll(`#${context}Modal .type-option`);
+    const modal = context === 'add' ? document.getElementById('addModal') : document.getElementById('editModal');
+    const options = modal.querySelectorAll('.type-option');
+
     options.forEach(opt => opt.classList.remove('active'));
     event.target.closest('.type-option').classList.add('active');
 
     document.getElementById(`${context}Tipe`).value = type;
 
     const pgOptions = document.getElementById(`${context}PGOptions`);
+
     if (type === 'pg') {
         pgOptions.style.display = 'block';
-        pgOptions.querySelectorAll('input, select').forEach(el => el.required = true);
+        pgOptions.querySelectorAll('input[name^="opsi_"]').forEach(el => el.required = true);
+        pgOptions.querySelector('select[name="jawaban_benar"]').required = true;
     } else {
         pgOptions.style.display = 'none';
-        pgOptions.querySelectorAll('input, select').forEach(el => el.required = false);
+        pgOptions.querySelectorAll('input[name^="opsi_"]').forEach(el => {
+            el.required = false;
+            el.value = '';
+        });
+        pgOptions.querySelector('select[name="jawaban_benar"]').required = false;
+        pgOptions.querySelector('select[name="jawaban_benar"]').value = '';
     }
 }
 

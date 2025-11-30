@@ -25,14 +25,21 @@ class Adoption extends Model
         return $this->hasMany(QuizJawaban::class, 'adopsi_id');
     }
 
+    // Relasi: Adoption dimiliki oleh satu kucing
     public function kucing()
     {
         return $this->belongsTo(Kucing::class, 'kucing_id');
     }
 
+    // Relasi: Adoption dimiliki oleh satu adopter
     public function adopter()
     {
         return $this->belongsTo(Pengguna::class, 'adopter_id');
+    }
 
+    // Relasi: Adoption memiliki banyak history
+    public function histories()
+    {
+        return $this->hasMany(HistoryAdopt::class, 'adopsi_id');
     }
 }

@@ -104,6 +104,70 @@
     text-align: center;
     color: #4b2e14;
 }
+
+/* Kucing Card Styles */
+.kucing-mini-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.kucing-mini-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.kucing-mini-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
+}
+
+.kucing-mini-body {
+    padding: 15px;
+}
+
+.kucing-mini-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4b2e14;
+    margin-bottom: 8px;
+}
+
+.kucing-mini-info {
+    font-size: 13px;
+    color: #6b5030;
+    margin-bottom: 5px;
+}
+
+.badge-mini-available {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.section-cats {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.section-cats h4 {
+    color: #4b2e14;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #c48a55;
+}
 </style>
 
 <div class="welcome-banner">
@@ -148,6 +212,62 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Kucing Tersedia Section -->
+<div class="section-cats">
+    <h4>🐱 Kucing Tersedia untuk Adopsi</h4>
+
+    @php
+        $availableCats = \App\Models\Kucing::where('status', 'available')->take(3)->get();
+    @endphp
+
+    @if($availableCats->isEmpty())
+        <div class="text-center py-4">
+            <p class="text-muted">Belum ada kucing yang tersedia saat ini</p>
+        </div>
+    @else
+        <div class="row">
+            @foreach($availableCats as $cat)
+                <div class="col-md-4">
+                    <div class="kucing-mini-card">
+                        @if($cat->image)
+                            <img src="{{ asset('storage/' . $cat->image) }}"
+                                 class="kucing-mini-img"
+                                 alt="{{ $cat->name }}"
+                                 onerror="this.src='https://via.placeholder.com/300x180/f8e6cc/4b2e14?text={{ urlencode($cat->name) }}'">
+                        @else
+                            <img src="https://via.placeholder.com/300x180/f8e6cc/4b2e14?text={{ urlencode($cat->name) }}"
+                                 class="kucing-mini-img"
+                                 alt="No Image">
+                        @endif
+
+                        <div class="kucing-mini-body">
+                            <h6 class="kucing-mini-name">{{ $cat->name }}</h6>
+                            <div class="kucing-mini-info">
+                                <i class="bi bi-award"></i> {{ $cat->breed ?? '-' }}
+                            </div>
+                            <div class="kucing-mini-info">
+                                <i class="bi bi-calendar3"></i> {{ $cat->age }} tahun
+                            </div>
+                            <div class="mt-3 d-flex justify-content-between align-items-center">
+                                <span class="badge-mini-available">✓ Available</span>
+                                <a href="{{ route('adopter.pilih') }}" class="btn btn-sm btn-primary">
+                                    Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ route('adopter.pilih') }}" class="btn-feature">
+                Lihat Semua Kucing →
+            </a>
+        </div>
+    @endif
 </div>
 
 <div class="row">
@@ -211,5 +331,4 @@
         <strong>🎉 Selamat!</strong> Anda telah berhasil mengadopsi {{ $approved }} kucing. Terima kasih telah memberikan rumah yang penuh kasih!
     </div>
 @endif
-
 @endsection
