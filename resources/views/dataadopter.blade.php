@@ -27,7 +27,7 @@
     padding: 25px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 }
-.table th { background-color: #3b3b3b !important; color: white !important; }
+.table th { background-color: #f8e6cc !important; color: #4b2e14 !important; }
 </style>
 
 <div class="container mt-4">

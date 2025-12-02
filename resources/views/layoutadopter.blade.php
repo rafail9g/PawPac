@@ -223,6 +223,23 @@
                 margin-left: 0;
             }
         }
+        .btn-feature {
+            background: linear-gradient(135deg, #c48a55, #a16c3e);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-feature:hover {
+            background: linear-gradient(135deg, #a16c3e, #8b5e34);
+            transform: scale(1.05);
+            color: white;
+        }
     </style>
 
 </head>

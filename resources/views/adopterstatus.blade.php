@@ -15,7 +15,7 @@
 
         <div class="text-center mt-5">
             <h5 class="text-muted">Belum ada pengajuan adopsi.</h5>
-            <a href="{{ route('adopter.pilih') }}" class="btn btn-primary mt-3">
+            <a href="{{ route('adopter.pilih') }}" class="btn-feature mt-3">
                 Pilih Kucing
             </a>
         </div>

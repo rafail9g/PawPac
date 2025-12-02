@@ -4,12 +4,23 @@
 
 <style>
 .materi-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 40px;
+    background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
+    padding: 30px;
     border-radius: 16px;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.materi-header h2 {
+    color: #4b2e14;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.materi-header p {
+    color: #6b5030;
+    font-size: 16px;
 }
 
 .materi-card {

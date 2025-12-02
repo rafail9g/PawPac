@@ -96,7 +96,7 @@
 }
 
 .btn-add-main {
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background:  linear-gradient(135deg, #DFA45A, #B6784A);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -106,7 +106,7 @@
 }
 
 .btn-add-main:hover {
-    background: linear-gradient(135deg, #2980b9, #21618c);
+    background: linear-gradient(135deg, #C98E49, #A0643E);
     transform: scale(1.05);
 }
 
@@ -145,6 +145,24 @@
 .empty-state img {
     width: 200px;
     opacity: 0.6;
+}
+
+.btn-feature {
+    background: linear-gradient(135deg, #c48a55, #a16c3e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-feature:hover {
+    background: linear-gradient(135deg, #a16c3e, #8b5e34);
+    transform: scale(1.05);
+    color: white;
 }
 </style>
 
@@ -305,7 +323,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button class="btn btn-primary" type="submit">Simpan</button>
+                        <button class="btn-feature" type="submit">Simpan</button>
                     </div>
                 </div>
             </form>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('opsi_d')->nullable();
 
             // "pilihan" atau "isian"
-            $table->enum('tipe_soal', ['pilihan', 'isian'])->default('pilihan');
+            $table->enum('tipe_soal', ['pg', 'isian'])->default('pg');
 
             // Untuk pilihan ganda → jawaban_benar adalah huruf A,B,C,D
             // Untuk isian → jawaban_benar adalah string jawaban

@@ -3,6 +3,11 @@
 @section('content')
 
 <style>
+
+.nama{
+    color: #c48a55;
+}
+
 .kucing-card {
     transition: transform 0.3s ease;
     border: none;
@@ -46,6 +51,24 @@
     font-size: 13px;
     margin-top: 5px;
     display: none;
+}
+
+.btn-feature {
+    background: linear-gradient(135deg, #c48a55, #a16c3e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-feature:hover {
+    background: linear-gradient(135deg, #a16c3e, #8b5e34);
+    transform: scale(1.05);
+    color: white;
 }
 </style>
 
@@ -111,7 +134,7 @@
                                     @if($k->status === 'adopted')
                                         <span class="badge-adopted">✗ Sudah Diadopsi</span>
                                     @elseif($k->status === 'available')
-                                        <button class="btn btn-primary w-100"
+                                        <button class="btn-feature w-100"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modal{{ $k->id }}">
                                             Adopsi Sekarang
@@ -144,7 +167,7 @@
                                     @endif
                                     <p class="fs-5">
                                         Apakah Anda yakin ingin mengadopsi
-                                        <b class="text-primary">{{ $k->name }}</b>?
+                                        <b class="nama">{{ $k->name }}</b>?
                                     </p>
                                     <p class="text-muted small">
                                         Anda akan mengikuti tes kelayakan adopsi terlebih dahulu.
@@ -174,7 +197,7 @@
     @if(isset($kucing) && isset($soal))
 
         <h2 class="mb-4 fw-bold text-center">
-            Tes Kelayakan Adopsi untuk <span class="text-primary">{{ $kucing->name }}</span>
+            Tes Kelayakan Adopsi untuk <span class="nama">{{ $kucing->name }}</span>
         </h2>
 
         <div class="alert alert-info">
@@ -196,7 +219,7 @@
                             Soal {{ $index + 1 }}: {{ $s->pertanyaan }}
                         </h5>
 
-                        @if($s->tipe === 'isian')
+                        @if($s->tipe_soal === 'isian')
                             <textarea class="form-control jawaban-isian"
                                     name="jawaban_{{ $s->id }}"
                                     id="jawaban_{{ $s->id }}"
@@ -212,7 +235,7 @@
                                 <span id="char_count_{{ $s->id }}">0</span> karakter (minimal 10)
                             </small>
 
-                        @elseif($s->tipe === 'pg')
+                        @elseif($s->tipe_soal === 'pg')
                             @foreach(['a','b','c','d'] as $opsi)
                                 @if($s->{'opsi_'.$opsi})
                                     <div class="form-check mt-2">

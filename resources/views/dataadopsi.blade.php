@@ -113,32 +113,32 @@
 }
 
 .btn-detail {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
     color: white;
 }
 
 .btn-detail:hover {
-    background: linear-gradient(135deg, #764ba2, #667eea);
+    background: linear-gradient(135deg, #27ae60, #1e8449);
     transform: scale(1.05);
 }
 
 .btn-status {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
+    background: linear-gradient(135deg, #3F8BFF, #1F6FE5);
     color: white;
 }
 
 .btn-status:hover {
-    background: linear-gradient(135deg, #f5576c, #f093fb);
+    background: linear-gradient(135deg, #1F6FE5, #1557C4);
     transform: scale(1.05);
 }
 
 .btn-edit-adopsi {
-    background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-    color: #4b2e14;
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    color: white;
 }
 
 .btn-edit-adopsi:hover {
-    background: linear-gradient(135deg, #fdcb6e, #f39c12);
+    background: linear-gradient(135deg, #d4ac0d, #b9770e);
     transform: scale(1.05);
 }
 
@@ -223,7 +223,7 @@
 }
 
 .nilai-badge {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #F7C46C, #DFA45A);
     color: white;
     padding: 5px 12px;
     border-radius: 15px;
@@ -315,7 +315,7 @@
 
                         <div class="info-grid">
                             <div class="info-item-adopsi">
-                                <span class="info-label-adopsi">👤 Adopter</span>
+                                <span class="info-label-adopsi">Adopter</span>
                                 <span class="info-value-adopsi">{{ $a->adopter->name }}</span>
                             </div>
 

@@ -33,7 +33,7 @@
         }
         input {
             width: 100%;
-            padding: 8px 40px 8px 8px; /* padding kanan untuk ikon */
+            padding: 8px 40px 8px 8px;
             border-radius: 8px;
             border: 1px solid #cfa97e;
             box-sizing: border-box;

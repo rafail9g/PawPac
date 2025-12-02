@@ -142,6 +142,32 @@
     background-color: #fff3cd;
     color: #856404;
 }
+
+.nama {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4b2e14;
+    margin-bottom: 8px;
+}
+
+.btn-feature {
+    text-align: center;
+    background: linear-gradient(135deg, #c48a55, #a16c3e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-feature:hover {
+    background: linear-gradient(135deg, #a16c3e, #8b5e34);
+    transform: scale(1.05);
+    color: white;
+}
 </style>
 
 <div class="container mt-4">
@@ -168,7 +194,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card-adopsi">
                             <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="fw-bold text-primary mb-0">{{ $p->kucing->name }}</h5>
+                                <h5 class="fw-bold nama mb-0">{{ $p->kucing->name }}</h5>
                                 <span class="badge-status
                                     @if($p->status == 'pending') badge-pending
                                     @elseif($p->status == 'lulus') badge-lulus
@@ -190,7 +216,7 @@
 
                             @if($p->status == 'pending')
                                 <a href="{{ route('provider.adoption.review', $p->id) }}"
-                                   class="btn btn-review w-100">
+                                   class="btn-feature w-100">
                                     Review Sekarang
                                 </a>
                             @else

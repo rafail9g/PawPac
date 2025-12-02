@@ -95,7 +95,7 @@
 }
 
 .btn-add-main {
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background:  linear-gradient(135deg, #DFA45A, #B6784A);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -105,7 +105,7 @@
 }
 
 .btn-add-main:hover {
-    background: linear-gradient(135deg, #2980b9, #21618c);
+    background: linear-gradient(135deg, #C98E49, #A0643E);
     transform: scale(1.05);
 }
 

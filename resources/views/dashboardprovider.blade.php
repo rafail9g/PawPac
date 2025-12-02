@@ -4,13 +4,24 @@
 
 @section('content')
 <style>
-.hero-section {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-    color: white;
-    padding: 40px;
+.welcome-header {
+    background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
+    padding: 30px;
     border-radius: 16px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
+    text-align: center;
+}
+
+.welcome-header h2 {
+    color: #4b2e14;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.welcome-header p {
+    color: #6b5030;
+    font-size: 16px;
 }
 
 .stats-grid {
@@ -124,7 +135,7 @@
 }
 </style>
 
-<div class="hero-section">
+<div class="welcome-header">
     <h2 style="font-size: 32px; font-weight: bold; margin-bottom: 10px;">
         Selamat Datang, {{ auth()->user()->name }}!
     </h2>

@@ -5,7 +5,7 @@
 @section('content')
 <style>
 .stats-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #F7C46C, #DFA45A);
     border-radius: 16px;
     padding: 25px;
     color: white;
@@ -19,15 +19,15 @@
 }
 
 .stats-card.green {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    background: linear-gradient(135deg, #F7C46C);
 }
 
 .stats-card.orange {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #F7C46C, #DFA45A);
 }
 
 .stats-card.blue {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #F7C46C, #F8E3C5);
 }
 
 .stats-number {
@@ -131,23 +131,23 @@
     <div class="col-md-3">
         <div class="stats-card">
             <div class="stats-number">{{ \App\Models\Pengguna::where('role', 'adopter')->count() }}</div>
-            <div class="stats-label">👤Total Adopter</div>
+            <div class="stats-label">Total Adopter</div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="stats-card green">
+        <div class="stats-card">
             <div class="stats-number">{{ \App\Models\Adoption::where('status', 'lulus')->count() }}</div>
             <div class="stats-label">Adopsi Berhasil</div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="stats-card orange">
+        <div class="stats-card">
             <div class="stats-number">{{ \App\Models\Adoption::where('status', 'pending')->count() }}</div>
             <div class="stats-label">Menunggu Review</div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="stats-card blue">
+        <div class="stats-card">
             <div class="stats-number">{{ \App\Models\Materi::count() }}</div>
             <div class="stats-label">Total Materi</div>
         </div>

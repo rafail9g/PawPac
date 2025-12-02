@@ -5,18 +5,23 @@
 @section('content')
 <style>
 .welcome-banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 40px;
+    background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
+    padding: 30px;
     border-radius: 16px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    text-align: center;
 }
 
 .welcome-banner h2 {
+    color: #4b2e14;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.welcome-banner p {
+    color: #6b5030;
+    font-size: 16px;
 }
 
 .feature-card {
@@ -105,7 +110,6 @@
     color: #4b2e14;
 }
 
-/* Kucing Card Styles */
 .kucing-mini-card {
     background: white;
     border-radius: 12px;
@@ -251,7 +255,7 @@
                             </div>
                             <div class="mt-3 d-flex justify-content-between align-items-center">
                                 <span class="badge-mini-available">✓ Available</span>
-                                <a href="{{ route('adopter.pilih') }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('adopter.pilih') }}" class="btn-feature">
                                     Lihat Detail
                                 </a>
                             </div>
