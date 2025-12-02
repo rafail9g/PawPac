@@ -171,14 +171,14 @@
 </style>
 
 <div class="welcome-banner">
-    <h2>👋 Selamat Datang, {{ auth()->user()->name }}!</h2>
+    <h2>Selamat Datang, {{ auth()->user()->name }}!</h2>
     <p style="font-size: 16px; opacity: 0.9;">
         Temukan kucing yang sempurna untuk keluarga Anda di PawPac
     </p>
 </div>
 
 <div class="status-summary">
-    <h4 class="fw-bold mb-4" style="color: #4b2e14;">📊 Status Pengajuan Anda</h4>
+    <h4 class="fw-bold mb-4" style="color: #4b2e14;">Status Pengajuan Anda</h4>
     <div class="row">
         @php
             $myAdoptions = \App\Models\Adoption::where('adopter_id', auth()->id())->get();
@@ -214,9 +214,8 @@
     </div>
 </div>
 
-<!-- Kucing Tersedia Section -->
 <div class="section-cats">
-    <h4>🐱 Kucing Tersedia untuk Adopsi</h4>
+    <h4>Kucing Tersedia untuk Adopsi</h4>
 
     @php
         $availableCats = \App\Models\Kucing::where('status', 'available')->take(3)->get();
@@ -273,7 +272,6 @@
 <div class="row">
     <div class="col-md-4">
         <div class="feature-card">
-            <div class="feature-icon">🐱</div>
             <div class="feature-title">Tes Adopsi</div>
             <div class="feature-desc">
                 Ikuti tes kelayakan adopsi untuk menemukan kucing yang cocok dengan Anda
@@ -286,7 +284,6 @@
 
     <div class="col-md-4">
         <div class="feature-card">
-            <div class="feature-icon">📖</div>
             <div class="feature-title">Materi Edukasi</div>
             <div class="feature-desc">
                 Pelajari cara merawat kucing dengan baik melalui materi edukatif kami
@@ -299,7 +296,6 @@
 
     <div class="col-md-4">
         <div class="feature-card">
-            <div class="feature-icon">📋</div>
             <div class="feature-title">History Tes</div>
             <div class="feature-desc">
                 Lihat riwayat dan status pengajuan adopsi yang telah Anda ajukan
@@ -312,7 +308,7 @@
 </div>
 
 <div class="info-box mt-4">
-    <h5 style="font-weight: bold; margin-bottom: 15px;">💡 Tips Adopsi</h5>
+    <h5 style="font-weight: bold; margin-bottom: 15px;">Tips Adopsi</h5>
     <p style="margin-bottom: 10px;">
         Pastikan Anda sudah membaca materi perawatan kucing sebelum mengikuti tes adopsi.
         <br>

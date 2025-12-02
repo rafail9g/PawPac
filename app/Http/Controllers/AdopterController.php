@@ -80,7 +80,6 @@ class AdopterController extends Controller
     public function getJson($id)
     {
         $adopter = Pengguna::find($id);
-        // $adopter = \App\Models\Pengguna::find($id);
 
         if (!$adopter) {
             return response()->json(['error' => 'Adopter tidak ditemukan'], 404);
@@ -89,5 +88,38 @@ class AdopterController extends Controller
         return response()->json($adopter);
     }
 
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
 
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:pengguna,email,' . $user->id,
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'living_environment' => 'nullable|string',
+            'current_password' => 'nullable|required_with:new_password',
+            'new_password' => 'nullable|min:6|confirmed',
+        ]);
+
+        if ($request->filled('current_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'Password saat ini tidak sesuai']);
+            }
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->living_environment = $request->living_environment;
+
+        if ($request->filled('new_password')) {
+            $user->password = Hash::make($request->new_password);
+        }
+
+        $user->save();
+
+        return redirect()->route('adopter.profile')->with('success', 'Profil berhasil diperbarui!');
+    }
 }

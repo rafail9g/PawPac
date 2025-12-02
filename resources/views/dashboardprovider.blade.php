@@ -126,7 +126,7 @@
 
 <div class="hero-section">
     <h2 style="font-size: 32px; font-weight: bold; margin-bottom: 10px;">
-        👋 Selamat Datang, {{ auth()->user()->name }}!
+        Selamat Datang, {{ auth()->user()->name }}!
     </h2>
     <p style="font-size: 16px; opacity: 0.9;">
         Kelola kucing dan review pengajuan adopsi dengan mudah
@@ -143,32 +143,31 @@
 
     <div class="stat-box">
         <div class="stat-number purple">{{ $totalKucing }}</div>
-        <div class="stat-label">🐱 Total Kucing</div>
+        <div class="stat-label">Total Kucing</div>
     </div>
 
     <div class="stat-box">
         <div class="stat-number green">{{ $available }}</div>
-        <div class="stat-label">✓ Tersedia</div>
+        <div class="stat-label">Tersedia</div>
     </div>
 
     <div class="stat-box">
         <div class="stat-number orange">{{ $adopted }}</div>
-        <div class="stat-label">🏠 Sudah Diadopsi</div>
+        <div class="stat-label">Sudah Diadopsi</div>
     </div>
 
     <div class="stat-box">
         <div class="stat-number red">{{ $pendingReview }}</div>
-        <div class="stat-label">⏳ Menunggu Review</div>
+        <div class="stat-label">Menunggu Review</div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-7">
         <div class="action-panel">
-            <h4 class="section-title">⚡ Menu Utama</h4>
+            <h4 class="section-title">Menu Utama</h4>
 
             <a href="{{ route('provider.kucing.index') }}" class="action-button">
-                <div class="action-icon">🐱</div>
                 <div class="action-content">
                     <h5>Kelola Data Kucing</h5>
                     <p>Tambah, edit, atau hapus data kucing yang tersedia untuk adopsi</p>
@@ -176,7 +175,6 @@
             </a>
 
             <a href="{{ route('provider.adoption.list') }}" class="action-button">
-                <div class="action-icon">📝</div>
                 <div class="action-content">
                     <h5>Nilai Jawaban Tes</h5>
                     <p>Review dan nilai jawaban tes dari calon adopter</p>
@@ -185,13 +183,13 @@
         </div>
 
         <div class="alert alert-info">
-            <strong>💡 Tips:</strong> Pastikan untuk mereview pengajuan adopsi secara berkala agar calon adopter tidak menunggu terlalu lama.
+            <strong>Tips:</strong> Pastikan untuk mereview pengajuan adopsi secara berkala agar calon adopter tidak menunggu terlalu lama.
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="pending-list">
-            <h4 class="section-title">⏳ Pengajuan Menunggu</h4>
+            <h4 class="section-title">Pengajuan Menunggu</h4>
 
             @php
                 $pendingAdoptions = \App\Models\Adoption::with(['adopter', 'kucing'])
@@ -220,7 +218,7 @@
                 </div>
             @empty
                 <div class="text-center text-muted py-4">
-                    <p>✓ Tidak ada pengajuan yang menunggu</p>
+                    <p>Tidak ada pengajuan yang menunggu</p>
                 </div>
             @endforelse
         </div>

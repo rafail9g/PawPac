@@ -123,7 +123,7 @@
 </style>
 
 <div class="welcome-header">
-    <h2>👋 Selamat Datang, {{ auth()->user()->name }}!</h2>
+    <h2>Selamat Datang, {{ auth()->user()->name }}!</h2>
     <p>Kelola sistem PawPac dengan mudah dari dashboard ini</p>
 </div>
 
@@ -131,25 +131,25 @@
     <div class="col-md-3">
         <div class="stats-card">
             <div class="stats-number">{{ \App\Models\Pengguna::where('role', 'adopter')->count() }}</div>
-            <div class="stats-label">👤 Total Adopter</div>
+            <div class="stats-label">👤Total Adopter</div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="stats-card green">
             <div class="stats-number">{{ \App\Models\Adoption::where('status', 'lulus')->count() }}</div>
-            <div class="stats-label">✓ Adopsi Berhasil</div>
+            <div class="stats-label">Adopsi Berhasil</div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="stats-card orange">
             <div class="stats-number">{{ \App\Models\Adoption::where('status', 'pending')->count() }}</div>
-            <div class="stats-label">⏳ Menunggu Review</div>
+            <div class="stats-label">Menunggu Review</div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="stats-card blue">
             <div class="stats-number">{{ \App\Models\Materi::count() }}</div>
-            <div class="stats-label">📚 Total Materi</div>
+            <div class="stats-label">Total Materi</div>
         </div>
     </div>
 </div>
@@ -157,7 +157,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="quick-actions">
-            <h4 class="section-title">⚡ Aksi Cepat</h4>
+            <h4 class="section-title">Aksi Cepat</h4>
 
             <a href="{{ route('admin.adopter.index') }}" class="action-btn text-decoration-none">
                 <i class="bi bi-people-fill"></i>
@@ -195,7 +195,7 @@
 
     <div class="col-md-6">
         <div class="recent-activity">
-            <h4 class="section-title">📊 Aktivitas Terbaru</h4>
+            <h4 class="section-title">Aktivitas Terbaru</h4>
 
             @php
                 $recentAdoptions = \App\Models\Adoption::with(['adopter', 'kucing'])

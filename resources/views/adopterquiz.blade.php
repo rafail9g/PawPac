@@ -72,7 +72,7 @@
 
     @if(isset($kucingList))
 
-        <h2 class="mb-4 text-center fw-bold">🐱 Pilih Kucing untuk Diadopsi</h2>
+        <h2 class="mb-4 text-center fw-bold">Pilih Kucing untuk Diadopsi</h2>
 
         @if($kucingList->isEmpty())
             <div class="text-center py-5">
@@ -126,7 +126,6 @@
                         </div>
                     </div>
 
-                    <!-- Modal Konfirmasi -->
                     <div class="modal fade" id="modal{{ $k->id }}" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content rounded-4">
@@ -175,7 +174,7 @@
     @if(isset($kucing) && isset($soal))
 
         <h2 class="mb-4 fw-bold text-center">
-            📝 Tes Kelayakan Adopsi untuk <span class="text-primary">{{ $kucing->name }}</span>
+            Tes Kelayakan Adopsi untuk <span class="text-primary">{{ $kucing->name }}</span>
         </h2>
 
         <div class="alert alert-info">
@@ -239,7 +238,7 @@
 
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-success px-5 py-2 fs-5">
-                    📤 Kirim Jawaban
+                    Kirim Jawaban
                 </button>
             </div>
 
@@ -250,7 +249,6 @@
 </div>
 
 <script>
-// Validasi real-time untuk jawaban isian
 document.addEventListener('DOMContentLoaded', function() {
     const isianInputs = document.querySelectorAll('.jawaban-isian');
 
@@ -259,12 +257,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const errorDiv = document.getElementById('error_' + soalId);
         const charCount = document.getElementById('char_count_' + soalId);
 
-        // Update character count
         input.addEventListener('input', function() {
             const length = this.value.length;
             charCount.textContent = length;
 
-            // Validasi karakter (hanya huruf, angka, spasi, koma, titik, tanda hubung)
             const regex = /^[a-zA-Z0-9\s,.\-]*$/;
 
             if (!regex.test(this.value)) {
@@ -276,7 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Prevent typing symbols
         input.addEventListener('keypress', function(e) {
             const char = String.fromCharCode(e.which);
             const regex = /^[a-zA-Z0-9\s,.\-]$/;
@@ -291,12 +286,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
             }
         });
-
-        // Trigger on page load (untuk old() values)
         input.dispatchEvent(new Event('input'));
     });
 
-    // Form validation sebelum submit
     const form = document.getElementById('quizForm');
     if (form) {
         form.addEventListener('submit', function(e) {

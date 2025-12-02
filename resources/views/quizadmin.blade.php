@@ -167,9 +167,9 @@
 <div class="container mt-4">
 
     <div class="section-header">
-        <h2 class="section-title">📝 Kelola Soal Quiz Adopsi</h2>
+        <h2 class="section-title">Kelola Soal Quiz Adopsi</h2>
         <button class="btn btn-add-main" data-bs-toggle="modal" data-bs-target="#addModal">
-            ➕ Tambah Soal Baru
+            Tambah Soal Baru
         </button>
     </div>
 
@@ -194,7 +194,7 @@
 
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <span class="quiz-type-badge {{ $s->tipe == 'pg' ? 'badge-pg' : 'badge-isian' }}">
-                                {{ $s->tipe == 'pg' ? '✓ Pilihan Ganda' : '✍️ Isian' }}
+                                {{ $s->tipe == 'pg' ? '✓ Pilihan Ganda' : 'Isian' }}
                             </span>
                             <span class="text-muted" style="font-size: 14px;">Soal #{{ $index + 1 }}</span>
                         </div>
@@ -213,7 +213,7 @@
 
                             @if($s->jawaban_benar)
                                 <div class="correct-answer">
-                                    ✓ Jawaban Benar: {{ $s->jawaban_benar }}
+                                    Jawaban Benar: {{ $s->jawaban_benar }}
                                 </div>
                             @endif
                         @else
@@ -225,7 +225,7 @@
                         <div class="d-flex gap-2">
                             <button class="btn-action-quiz btn-edit-quiz flex-fill"
                                     onclick="openEditModal({{ $s->id }})">
-                                ✏️ Edit
+                                Edit
                             </button>
 
                             <form action="{{ route('admin.quiz.destroy', $s->id) }}"
@@ -235,7 +235,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn-action-quiz btn-delete-quiz w-100">
-                                    🗑️ Hapus
+                                    Hapus
                                 </button>
                             </form>
                         </div>
@@ -247,14 +247,13 @@
 
 </div>
 
-<!-- Modal Tambah -->
 <div class="modal fade" id="addModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <form action="{{ route('admin.quiz.store') }}" method="POST">
             @csrf
             <div class="modal-content" style="border-radius: 16px;">
                 <div class="modal-header" style="background: linear-gradient(135deg, #f8e6cc, #ffe8c2);">
-                    <h5 class="modal-title fw-bold" style="color: #4b2e14;">➕ Tambah Soal Baru</h5>
+                    <h5 class="modal-title fw-bold" style="color: #4b2e14;">Tambah Soal Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -267,7 +266,6 @@
                                 <div style="font-weight: 600;">Pilihan Ganda</div>
                             </div>
                             <div class="type-option" onclick="selectType('isian', 'add')">
-                                <div style="font-size: 24px; margin-bottom: 5px;">✍️</div>
                                 <div style="font-weight: 600;">Isian</div>
                             </div>
                         </div>
@@ -323,7 +321,6 @@
     </div>
 </div>
 
-<!-- Modal Edit -->
 <div class="modal fade" id="editModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <form id="editForm" method="POST">
@@ -331,7 +328,7 @@
             @method('PUT')
             <div class="modal-content" style="border-radius: 16px;">
                 <div class="modal-header" style="background: linear-gradient(135deg, #f8e6cc, #ffe8c2);">
-                    <h5 class="modal-title fw-bold" style="color: #4b2e14;">✏️ Edit Soal</h5>
+                    <h5 class="modal-title fw-bold" style="color: #4b2e14;">Edit Soal</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body" id="editContent">
@@ -423,7 +420,6 @@ function openEditModal(id) {
                             <div style="font-weight: 600;">Pilihan Ganda</div>
                         </div>
                         <div class="type-option ${data.tipe === 'isian' ? 'active' : ''}" onclick="selectType('isian', 'edit')">
-                            <div style="font-size: 24px; margin-bottom: 5px;">✍️</div>
                             <div style="font-weight: 600;">Isian</div>
                         </div>
                     </div>

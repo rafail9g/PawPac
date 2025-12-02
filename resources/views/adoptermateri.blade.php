@@ -97,7 +97,7 @@
 
     <div class="materi-header">
         <h2 style="font-size: 36px; font-weight: bold; margin-bottom: 10px;">
-            📖 Materi Edukasi Perawatan Kucing
+            Materi Edukasi Perawatan Kucing
         </h2>
         <p style="font-size: 16px; opacity: 0.9;">
             Pelajari cara merawat kucing dengan baik sebelum mengadopsi
@@ -110,7 +110,7 @@
                 <input type="text"
                        id="searchInput"
                        class="form-control"
-                       placeholder="🔍 Cari materi berdasarkan judul atau kategori...">
+                       placeholder="Cari materi berdasarkan judul atau kategori...">
             </div>
             <div class="col-md-4">
                 <select id="filterKategori" class="form-select">
@@ -145,20 +145,6 @@
                                 {{ $m->kategori }}
                             </span>
                         @endif
-
-                        <div class="materi-icon">
-                            @if(stripos($m->judul, 'mandi') !== false || stripos($m->kategori ?? '', 'dasar') !== false)
-                                🛁
-                            @elseif(stripos($m->judul, 'bulu') !== false || stripos($m->kategori ?? '', 'bulu') !== false)
-                                ✂️
-                            @elseif(stripos($m->judul, 'makan') !== false || stripos($m->judul, 'nutrisi') !== false)
-                                🍖
-                            @elseif(stripos($m->judul, 'kesehatan') !== false)
-                                🏥
-                            @else
-                                📝
-                            @endif
-                        </div>
 
                         <h5 class="materi-judul">{{ $m->judul }}</h5>
 
