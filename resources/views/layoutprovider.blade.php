@@ -6,6 +6,10 @@
     <title>@yield('title', 'PawPac Provider')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    @vite(['resources/js/app.js'])
 
     <style>
         * {
@@ -270,6 +274,12 @@
                 <i class="bi bi-clipboard-check-fill"></i>
                 <span>Nilai Jawaban</span>
             </a>
+
+            <a href="{{ route('provider.location') }}"
+               class="nav-link {{ request()->routeIs('provider.location') ? 'active' : '' }}">
+                <i class="bi bi-pin-map-fill"></i>
+                <span>Lokasi</span>
+            </a>
         </div>
 
         <div class="sidebar-footer">
@@ -292,5 +302,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
+    @stack('scripts')
 </body>
 </html>

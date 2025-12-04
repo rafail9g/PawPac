@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             PenggunaSeeder::class,
             MateriSeeder::class,
             QuizSeeder::class,
+            LokasiSeeder::class,
+            InfoLokasiSeeder::class,
             // Tambah seeder lain di sini kalau ada
         ]);
     }

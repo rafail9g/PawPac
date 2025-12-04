@@ -113,6 +113,26 @@
             animation: fadeInUp 1s ease;
         }
 
+        .welcome-header {
+            background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .welcome-header h2 {
+            color: #4b2e14;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .welcome-header p {
+            color: #6b5030;
+            font-size: 16px;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -139,21 +159,41 @@
         }
 
         .section-header {
+            background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
+            padding: 40px 20px;
+            border-radius: 16px;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
+        .section-header h1,
+        .section-header h2,
         .section-header h3 {
-            font-size: 38px;
-            font-weight: bold;
             color: #4b2e14;
+            font-weight: bold;
             margin-bottom: 10px;
         }
 
         .section-header p {
-            color: #8b6f4e;
+            color: #6b5030;
             font-size: 16px;
+            opacity: 0.9;
         }
+
+        .btn-cta {
+            background: #4b2e14;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-cta:hover {
+            background: #6b5030;
+            color: white;
+        }
+
 
         .section-divider {
             width: 80px;
@@ -244,7 +284,7 @@
             margin-bottom: 30px;
         }
 
-        .btn-cta {
+        /* .btn-cta {
             background: white;
             color: #667eea;
             padding: 15px 40px;
@@ -259,7 +299,7 @@
             background: #f8e6cc;
             transform: translateY(-3px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-        }
+        } */
 
         footer {
             background: linear-gradient(135deg, #2c3e50, #34495e);
@@ -369,7 +409,7 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <section class="section-header">
         <div class="hero-content">
             <h1>Selamat Datang di PawPac</h1>
             <p>"Satu langkah kecil dari Anda, kehidupan baru untuk mereka."</p>
@@ -456,7 +496,7 @@
         </div>
     </section>
 
-    <section class="cta-section">
+    <section class="section-header">
         <div class="container">
             <h3>Siap Memberikan Rumah Baru?</h3>
             <p>Bergabunglah dengan komunitas pecinta hewan dan berikan kesempatan hidup baru</p>

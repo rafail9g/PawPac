@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
+use App\Models\InfoLokasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -122,4 +123,17 @@ class AdopterController extends Controller
 
         return redirect()->route('adopter.profile')->with('success', 'Profil berhasil diperbarui!');
     }
+
+    public function map()
+{
+    $lokasi = \App\Models\Lokasi::first();
+    $info = InfoLokasi::first();
+
+    return view('adopterloc', [
+        'lat' => $lokasi->lat,
+        'lng' => $lokasi->lng,
+        'info' => $info,
+    ]);
+}
+
 }

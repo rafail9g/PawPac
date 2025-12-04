@@ -7,6 +7,8 @@ use App\Models\QuizSoal;
 use App\Models\Adoption;
 use App\Models\QuizJawaban;
 use App\Models\HistoryAdopt;
+use App\Models\Lokasi;
+use App\Models\InfoLokasi;
 use Illuminate\Http\Request;
 
 class ProviderAdoptController extends Controller
@@ -71,4 +73,96 @@ class ProviderAdoptController extends Controller
         return redirect('/provider/adoption')
             ->with('success', 'Penilaian berhasil disimpan dan history tercatat.');
     }
+
+    // public function editLocation()
+    // {
+    //     $lokasi = \App\Models\Lokasi::first();
+
+    //     return view('provider.location', [
+    //         'lat' => $lokasi?->lat ?? 0,
+    //         'lng' => $lokasi?->lng ?? 0,
+    //     ]);
+    // }
+
+    public function editLocation()
+    {
+        session()->forget('errors');
+        session()->forget('_old_input');
+    
+        $info = InfoLokasi::first() ?? new InfoLokasi();
+        $lokasi = Lokasi::first() ?? new Lokasi();
+
+        return view('providerloc', [
+            'info' => $info,
+            'lokasi' => $lokasi,
+        ]);
+    }
+
+    public function updateLocation(Request $request)
+    {
+        $request->validate([
+            'lat' => 'required',
+            'lng' => 'required',
+        ]);
+
+        $shelter = Lokasi::first();
+        $shelter->lat = $request->lat;
+        $shelter->lng = $request->lng;
+        $shelter->save();
+
+        return back()->with('success', 'Lokasi shelter berhasil diperbarui!');
+    }
+    public function updateAll(Request $request)
+    {
+        $request->validate([
+            'alamat' => 'required|string',
+            'no_hp' => 'required|digits_between:8,15',
+            'jam_buka' => 'required',
+            'jam_tutup' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+        ],
+        [
+            'alamat.required' => 'Alamat tidak boleh kosong.',
+            'no_hp.required' => 'Nomor HP wajib diisi.',
+            'no_hp.digits_between' => 'Nomor HP harus berisi 8–15 digit angka.',
+            'jam_buka.required' => 'Jam buka harus diisi.',
+            'jam_tutup.required' => 'Jam tutup harus diisi.',
+        ]);
+
+        // validasi jam
+        if ($request->jam_tutup <= $request->jam_buka) {
+            return back()->withErrors([
+                'jam_tutup' => 'Jam tutup harus lebih besar dari jam buka!'
+            ]);
+        }
+
+        // UPDATE INFO LOKASI
+        $info = InfoLokasi::first();
+
+        if (!$info) {
+            $info = new InfoLokasi();
+        }
+
+        $info->alamat = $request->alamat;
+        $info->no_hp = $request->no_hp;
+        $info->jam_buka = $request->jam_buka;
+        $info->jam_tutup = $request->jam_tutup;
+        $info->save();
+
+        // UPDATE MAP
+        $lokasi = Lokasi::first();
+
+        if (!$lokasi) {
+            $lokasi = new Lokasi();
+        }
+
+        $lokasi->lat = $request->lat;
+        $lokasi->lng = $request->lng;
+        $lokasi->save();
+
+
+        return back()->with('success', 'Data lokasi berhasil diperbarui!');
+    }
+
 }

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'PawPac Adopter')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="crossorigin=""/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    @vite(['resources/js/app.js'])
 
     <style>
         * {
@@ -288,6 +290,12 @@
                 <i class="bi bi-person-circle"></i>
                 <span>Edit Profil</span>
             </a>
+
+            <a href="{{ route('adopter.map') }}"
+               class="nav-link {{ request()->routeIs('adopter.map') ? 'active' : '' }}">
+                <i class="bi bi-pin-map-fill"></i>
+                <span>Lokasi</span>
+            </a>
         </div>
 
         <div class="sidebar-footer">
@@ -310,5 +318,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
+    @stack('scripts')
 </body>
 </html>
