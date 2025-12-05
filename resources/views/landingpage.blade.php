@@ -40,16 +40,21 @@
             gap: 10px;
         }
 
-        .brand-icon {
-            width: 40px;
-            height: 40px;
+        .brand-logo {
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #c48a55, #a16c3e);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .brand-logo svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
         }
 
         .nav-link {
@@ -85,8 +90,8 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)),
-                        url('https://i.imgur.com/zAa2ePX.png');
+            background: linear-gradient(135deg, rgba(196, 138, 85, 0.9), rgba(161, 108, 62, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8e6cc" width="1200" height="600"/><circle fill="%23ffe8c2" opacity="0.3" cx="200" cy="100" r="150"/><circle fill="%23c48a55" opacity="0.2" cx="900" cy="400" r="200"/></svg>');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -111,26 +116,6 @@
             position: relative;
             z-index: 1;
             animation: fadeInUp 1s ease;
-        }
-
-        .welcome-header {
-            background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
-            padding: 30px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .welcome-header h2 {
-            color: #4b2e14;
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .welcome-header p {
-            color: #6b5030;
-            font-size: 16px;
         }
 
         @keyframes fadeInUp {
@@ -159,41 +144,21 @@
         }
 
         .section-header {
-            background: linear-gradient(135deg, #f8e6cc, #ffe8c2);
-            padding: 40px 20px;
-            border-radius: 16px;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .section-header h1,
-        .section-header h2,
         .section-header h3 {
-            color: #4b2e14;
+            font-size: 38px;
             font-weight: bold;
+            color: #4b2e14;
             margin-bottom: 10px;
         }
 
         .section-header p {
-            color: #6b5030;
+            color: #8b6f4e;
             font-size: 16px;
-            opacity: 0.9;
         }
-
-        .btn-cta {
-            background: #4b2e14;
-            color: white;
-            padding: 12px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: 0.2s;
-        }
-
-        .btn-cta:hover {
-            background: #6b5030;
-            color: white;
-        }
-
 
         .section-divider {
             width: 80px;
@@ -253,6 +218,7 @@
         .feature-icon {
             font-size: 48px;
             margin-bottom: 20px;
+            color: #c48a55;
         }
 
         .feature-box h5 {
@@ -268,7 +234,7 @@
 
         .cta-section {
             padding: 80px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #c48a55 0%, #a16c3e 100%);
             color: white;
             text-align: center;
         }
@@ -284,9 +250,9 @@
             margin-bottom: 30px;
         }
 
-        /* .btn-cta {
+        .btn-cta {
             background: white;
-            color: #667eea;
+            color: #c48a55;
             padding: 15px 40px;
             border-radius: 10px;
             font-weight: 600;
@@ -299,10 +265,10 @@
             background: #f8e6cc;
             transform: translateY(-3px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-        } */
+        }
 
         footer {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: linear-gradient(135deg, #4b2e14, #6b5030);
             color: white;
             padding: 40px 0 20px;
         }
@@ -379,9 +345,12 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                PawPac
-            </a>
+            <div class="logo-container">
+                <div class="brand-logo">
+                    <img src="{{ asset('storage/images/kucing/Logo.png') }}" alt="Logo" style="width: 50px;">
+                </div>
+                <div class="brand-text">PawPac</div>
+            </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
@@ -409,10 +378,10 @@
         </div>
     </nav>
 
-    <section class="section-header">
+    <section class="hero">
         <div class="hero-content">
             <h1>Selamat Datang di PawPac</h1>
-            <p>"Satu langkah kecil dari Anda, kehidupan baru untuk mereka."</p>
+            <p>Satu langkah kecil dari Anda, kehidupan baru untuk mereka</p>
         </div>
     </section>
 
@@ -427,18 +396,27 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="bi bi-patch-check"></i>
+                        </div>
                         <h5>Hewan Terverifikasi</h5>
                         <p>Semua hewan telah melalui pemeriksaan kesehatan lengkap</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="bi bi-book"></i>
+                        </div>
                         <h5>Edukasi Lengkap</h5>
                         <p>Materi perawatan dan panduan adopsi yang komprehensif</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
                         <h5>Proses Transparan</h5>
                         <p>Sistem adopsi yang jelas dan terstruktur dengan baik</p>
                     </div>
@@ -447,7 +425,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section class="gallery-section">
         <div class="container">
             <div class="section-header">
@@ -496,7 +473,7 @@
         </div>
     </section>
 
-    <section class="section-header">
+    <section class="cta-section">
         <div class="container">
             <h3>Siap Memberikan Rumah Baru?</h3>
             <p>Bergabunglah dengan komunitas pecinta hewan dan berikan kesempatan hidup baru</p>
@@ -510,7 +487,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h5>🐾 PawPac</h5>
+                    <h5>PawPac</h5>
                     <p>Platform terpercaya untuk dokumentasi dan adopsi hewan dengan sistem yang transparan dan terverifikasi.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>

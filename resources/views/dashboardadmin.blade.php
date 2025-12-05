@@ -124,7 +124,7 @@
 
 <div class="welcome-header">
     <h2>Selamat Datang, {{ auth()->user()->name }}!</h2>
-    <p>Kelola sistem PawPac dengan mudah dari dashboard ini</p>
+    <p>Kelola sistem PawPac</p>
 </div>
 
 <div class="row mb-4">
@@ -157,7 +157,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="quick-actions">
-            <h4 class="section-title">Aksi Cepat</h4>
+            <h4 class="section-title">Halaman</h4>
 
             <a href="{{ route('admin.adopter.index') }}" class="action-btn text-decoration-none">
                 <i class="bi bi-people-fill"></i>
@@ -170,7 +170,7 @@
             <a href="{{ route('admin.adopsi.index') }}" class="action-btn text-decoration-none">
                 <i class="bi bi-clipboard-check"></i>
                 <div>
-                    <div style="font-size: 16px;">Review Pengajuan Adopsi</div>
+                    <div style="font-size: 16px;">Kelola Pengajuan Adopsi</div>
                     <small style="opacity: 0.7;">Proses pengajuan yang masuk</small>
                 </div>
             </a>
@@ -186,7 +186,7 @@
             <a href="{{ route('admin.history.index') }}" class="action-btn text-decoration-none">
                 <i class="bi bi-clock-history"></i>
                 <div>
-                    <div style="font-size: 16px;">Lihat History Adopsi</div>
+                    <div style="font-size: 16px;">Kelola History Adopsi</div>
                     <small style="opacity: 0.7;">Riwayat semua adopsi</small>
                 </div>
             </a>
