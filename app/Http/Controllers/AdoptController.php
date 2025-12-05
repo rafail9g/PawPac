@@ -39,11 +39,49 @@ class AdoptController extends Controller
                 ->with('error', 'Kamu sudah mengajukan adopsi untuk kucing ini.');
         }
 
+        $sessionKey = 'quiz_progress_' . auth()->id() . '_' . $kucing_id;
+
+        if (!session()->has($sessionKey)) {
+            session([$sessionKey => [
+                'kucing_id' => $kucing_id,
+                'jawaban' => [],
+                'started_at' => now()
+            ]]);
+        }
+
+        $progress = session($sessionKey);
+
         return view('adopterquiz', [
             'kucingList' => null,
             'kucing' => $kucing,
-            'soal' => QuizSoal::all()
+            'soal' => QuizSoal::all(),
+            'progress' => $progress
         ]);
+    }
+
+    public function saveProgress(Request $request, $kucing_id)
+    {
+        $sessionKey = 'quiz_progress_' . auth()->id() . '_' . $kucing_id;
+
+        $progress = session($sessionKey, [
+            'kucing_id' => $kucing_id,
+            'jawaban' => [],
+            'started_at' => now()
+        ]);
+
+        $progress['jawaban'] = $request->input('jawaban', []);
+        session([$sessionKey => $progress]);
+
+        return response()->json(['success' => true, 'message' => 'Progress tersimpan']);
+    }
+
+    public function cancelQuiz($kucing_id)
+    {
+        $sessionKey = 'quiz_progress_' . auth()->id() . '_' . $kucing_id;
+        session()->forget($sessionKey);
+
+        return redirect()->route('adopter.pilih')
+            ->with('success', 'Quiz dibatalkan. Anda bisa memulai ulang kapan saja.');
     }
 
     public function submitQuiz(Request $request, $kucing_id)
@@ -69,9 +107,9 @@ class AdoptController extends Controller
                     ])->withInput();
                 }
 
-                if (strlen(trim($jawaban)) < 10) {
+                if (empty(trim($jawaban))) {
                     return back()->withErrors([
-                        $inputName => 'Jawaban isian minimal 10 karakter.'
+                        $inputName => 'Jawaban tidak boleh kosong.'
                     ])->withInput();
                 }
             }
@@ -105,6 +143,9 @@ class AdoptController extends Controller
         }
 
         $adopsi->update(['nilai_quiz' => $totalNilai]);
+
+        $sessionKey = 'quiz_progress_' . auth()->id() . '_' . $kucing_id;
+        session()->forget($sessionKey);
 
         return redirect()->route('adopter.status')
             ->with('success', 'Tes selesai! Jawaban isian sedang menunggu verifikasi provider.');

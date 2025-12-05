@@ -11,11 +11,6 @@ use App\Http\Controllers\ProviderAdoptController;
 use App\Http\Controllers\HistoryAdoptController;
 use App\Http\Controllers\AdoptionAdminController;
 use App\Http\Controllers\QuizAdminController;
-// use App\Http\Controllers\
-
-Route::get('/map', function () {
-    return view('adopterloc');
-});
 
 Route::get('/', function () {
     return view('landingpage');
@@ -75,16 +70,11 @@ Route::middleware([RoleMiddleware::class . ':adopter'])->group(function () {
     Route::get('/adopter/pilih', [AdoptController::class, 'pilihKucing'])->name('adopter.pilih');
     Route::get('/adopter/quiz/{kucing_id}', [AdoptController::class, 'mulaiQuiz'])->name('adopter.quiz');
     Route::post('/adopter/quiz/{kucing_id}', [AdoptController::class, 'submitQuiz'])->name('adopter.quiz.submit');
+    Route::post('/adopter/quiz/{kucing_id}/save-progress', [AdoptController::class, 'saveProgress'])->name('adopter.quiz.save');
+    Route::get('/adopter/quiz/{kucing_id}/cancel', [AdoptController::class, 'cancelQuiz'])->name('adopter.quiz.cancel');
     Route::get('/adopter/status', [AdoptController::class, 'status'])->name('adopter.status');
 
-    // Route::get('/map', function () {
-    //     return view('adopterloc');
-    // });
-    // Route::get('/adopter/map', function () {
-    //     return view('adopterloc');
-    // })->name('adopter.map');
     Route::get('/adopter/map', [AdopterController::class, 'map'])->name('adopter.map');
-
 
     Route::get('/adopter/materi', function () {
         $materi = \App\Models\Materi::all();
@@ -113,15 +103,5 @@ Route::middleware([RoleMiddleware::class . ':provider'])->group(function () {
     Route::post('/provider/adoption/{id}/nilai', [ProviderAdoptController::class, 'nilai'])->name('provider.nilai');
 
     Route::get('/provider/location', [ProviderAdoptController::class, 'editLocation'])->name('provider.location');
-    // Route::post('/provider/location', [ProviderAdoptController::class, 'updateLocation'])->name('provider.location.update');
-    // Route::post('/provider/info/update', [ProviderAdoptController::class, 'updateInfo'])
-    // ->name('provider.info.update');
-    Route::get('/provider/location', [ProviderAdoptController::class, 'editLocation'])
-    ->name('provider.location');
-
-    Route::post('/provider/location/updateAll', [ProviderAdoptController::class, 'updateAll'])
-    ->name('provider.location.updateAll');
-
-
-
+    Route::post('/provider/location/updateAll', [ProviderAdoptController::class, 'updateAll'])->name('provider.location.updateAll');
 });

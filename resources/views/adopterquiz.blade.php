@@ -70,6 +70,32 @@
     transform: scale(1.05);
     color: white;
 }
+
+.btn-cancel {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-cancel:hover {
+    background: linear-gradient(135deg, #7f8c8d, #6c7a7d);
+    transform: scale(1.05);
+    color: white;
+}
+
+.progress-info {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4caf50;
+}
 </style>
 
 <div class="container mt-4">
@@ -77,6 +103,13 @@
     @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error!</strong> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Berhasil!</strong> {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
@@ -200,12 +233,21 @@
             Tes Kelayakan Adopsi untuk <span class="nama">{{ $kucing->name }}</span>
         </h2>
 
+        @if(isset($progress) && isset($progress['started_at']))
+            <div class="progress-info">
+                <i class="bi bi-info-circle"></i>
+                <strong>Melanjutkan Quiz</strong>
+                Quiz dimulai pada {{ \Carbon\Carbon::parse($progress['started_at'])->format('d M Y, H:i') }}.
+            </div>
+        @endif
+
         <div class="alert alert-info">
             <strong>ℹ️ Perhatian:</strong>
             <ul class="mb-0">
                 <li>Untuk soal isian, <strong>tidak boleh menggunakan simbol khusus</strong> (@#$%^&* dll)</li>
                 <li>Hanya boleh menggunakan: <strong>huruf, angka, spasi, koma (,), titik (.), dan tanda hubung (-)</strong></li>
-                <li>Minimal 10 karakter untuk jawaban isian</li>
+                <li>Jawaban tidak boleh kosong</li>
+                <li>Progress Anda akan tersimpan otomatis</li>
             </ul>
         </div>
 
@@ -224,27 +266,26 @@
                                     name="jawaban_{{ $s->id }}"
                                     id="jawaban_{{ $s->id }}"
                                     rows="3"
-                                    placeholder="Tulis jawaban Anda di sini (minimal 10 karakter, tanpa simbol khusus)"
+                                    placeholder="Tulis jawaban Anda di sini (tanpa simbol khusus)"
                                     required
-                                    minlength="10"
-                                    data-soal-id="{{ $s->id }}">{{ old('jawaban_' . $s->id) }}</textarea>
+                                    data-soal-id="{{ $s->id }}">{{ old('jawaban_' . $s->id, $progress['jawaban']['jawaban_' . $s->id] ?? '') }}</textarea>
                             <div class="error-message" id="error_{{ $s->id }}">
                                 ⚠️ Jawaban tidak boleh mengandung simbol khusus (@#$%^&* dll)
                             </div>
                             <small class="text-muted">
-                                <span id="char_count_{{ $s->id }}">0</span> karakter (minimal 10)
+                                <span id="char_count_{{ $s->id }}">0</span> karakter
                             </small>
 
                         @elseif($s->tipe_soal === 'pg')
                             @foreach(['a','b','c','d'] as $opsi)
                                 @if($s->{'opsi_'.$opsi})
                                     <div class="form-check mt-2">
-                                        <input class="form-check-input"
+                                        <input class="form-check-input jawaban-pg"
                                                type="radio"
                                                name="jawaban_{{ $s->id }}"
                                                value="{{ strtoupper($opsi) }}"
                                                id="soal{{ $s->id }}_{{ $opsi }}"
-                                               {{ old('jawaban_' . $s->id) == strtoupper($opsi) ? 'checked' : '' }}
+                                               {{ old('jawaban_' . $s->id, $progress['jawaban']['jawaban_' . $s->id] ?? '') == strtoupper($opsi) ? 'checked' : '' }}
                                                required>
 
                                         <label class="form-check-label" for="soal{{ $s->id }}_{{ $opsi }}">
@@ -259,9 +300,15 @@
                 </div>
             @endforeach
 
-            <div class="text-center mt-4">
+            <div class="text-center mt-4 d-flex gap-3 justify-content-center">
+                <a href="{{ route('adopter.quiz.cancel', $kucing->id) }}"
+                   class="btn-cancel px-5 py-2 fs-5"
+                   onclick="return confirm('Apakah Anda yakin ingin membatalkan quiz ini? Progress Anda akan dihapus.')">
+                    <i class="bi bi-x-circle"></i> Batalkan Quiz
+                </a>
+
                 <button type="submit" class="btn btn-success px-5 py-2 fs-5">
-                    Kirim Jawaban
+                    <i class="bi bi-check-circle"></i> Kirim Jawaban
                 </button>
             </div>
 
@@ -274,6 +321,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const isianInputs = document.querySelectorAll('.jawaban-isian');
+    const pgInputs = document.querySelectorAll('.jawaban-pg');
 
     isianInputs.forEach(input => {
         const soalId = input.dataset.soalId;
@@ -291,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.style.borderColor = '#e74c3c';
             } else {
                 errorDiv.style.display = 'none';
-                this.style.borderColor = length >= 10 ? '#27ae60' : '#ced4da';
+                this.style.borderColor = length > 0 ? '#27ae60' : '#ced4da';
             }
         });
 
@@ -309,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
             }
         });
+
         input.dispatchEvent(new Event('input'));
     });
 
@@ -321,8 +370,8 @@ document.addEventListener('DOMContentLoaded', function() {
             isianInputs.forEach(input => {
                 const value = input.value.trim();
 
-                if (value.length < 10) {
-                    alert('Jawaban isian minimal 10 karakter!');
+                if (value.length === 0) {
+                    alert('Semua jawaban isian harus diisi!');
                     hasError = true;
                     input.focus();
                     return false;
@@ -340,8 +389,61 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
             }
         });
+
+        let autoSaveInterval = setInterval(function() {
+            saveProgress();
+        }, 5000);
+
+        isianInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                saveProgress();
+            });
+        });
+
+        pgInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                saveProgress();
+            });
+        });
+
+        window.addEventListener('beforeunload', function() {
+            saveProgress();
+        });
+
+        form.addEventListener('submit', function() {
+            clearInterval(autoSaveInterval);
+        });
     }
 });
-</script>
 
+function saveProgress() {
+    const form = document.getElementById('quizForm');
+    if (!form) return;
+
+    const formData = new FormData(form);
+    const jawaban = {};
+
+    formData.forEach((value, key) => {
+        if (key !== '_token') {
+            jawaban[key] = value;
+        }
+    });
+
+    const url = window.location.pathname;
+    const kucingId = url.split('/').pop();
+
+    fetch(`/adopter/quiz/${kucingId}/save-progress`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ||
+                           document.querySelector('input[name="_token"]').value
+        },
+        body: JSON.stringify({ jawaban: jawaban })
+    })
+    .catch(error => {
+        console.log('Auto-save error:', error);
+    });
+}
+</script>
 @endsection

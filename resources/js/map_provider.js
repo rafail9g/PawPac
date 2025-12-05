@@ -11,13 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let lat = parseFloat(latInput.value);
     let lng = parseFloat(lngInput.value);
 
-    // Default fallback kalau DB kosong
     if (isNaN(lat) || isNaN(lng)) {
         lat = -6.2;
         lng = 106.8;
     }
 
-    // FIX error: Map container already initialized
     const container = L.DomUtil.get("map");
     if (container !== null) {
         container._leaflet_id = null;
@@ -37,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
         lngInput.value = pos.lng;
     });
 
-    // Input manual update marker
     function updateMarker() {
         const newLat = parseFloat(latInput.value);
         const newLng = parseFloat(lngInput.value);
