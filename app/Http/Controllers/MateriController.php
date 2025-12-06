@@ -17,11 +17,10 @@ class MateriController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'isi'   => 'required|string', // validasi tambahan di bawah
+            'isi'   => 'required|string',
             'kategori' => 'nullable|string|max:255',
         ]);
 
-        // Batas 1000 kata
         if (str_word_count($request->isi) > 1000) {
             return back()->withErrors(['isi' => 'Isi materi tidak boleh lebih dari 1000 kata!'])->withInput();
         }
@@ -46,7 +45,6 @@ class MateriController extends Controller
             'kategori' => 'nullable|string|max:255',
         ]);
 
-        // Batas 1000 kata
         if (str_word_count($request->isi) > 1000) {
             return back()->withErrors(['isi' => 'Isi materi tidak boleh lebih dari 1000 kata!'])->withInput();
         }

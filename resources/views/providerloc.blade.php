@@ -60,25 +60,21 @@
     <form action="{{ route('provider.location.updateAll') }}" method="POST">
         @csrf
 
-        {{-- MAP --}}
         <div id="map" style="height: 500px;"></div>
 
         <input type="hidden" id="lat" name="lat" value="{{ $lokasi->lat }}">
         <input type="hidden" id="lng" name="lng" value="{{ $lokasi->lng }}">
 
-        {{-- ALAMAT --}}
         <div class="mb-3 mt-3">
             <label class="form-label">Alamat Shelter</label>
             <input type="text" name="alamat" value="{{ $info->alamat }}" class="form-control" required>
         </div>
 
-        {{-- NO HP --}}
         <div class="mb-3">
             <label class="form-label">No HP</label>
             <input type="text" name="no_hp" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '')"value="{{ old('no_hp', $info->no_hp ?? '') }}">
         </div>
 
-        {{-- JAM --}}
         <div class="mb-3">
             <label class="form-label">Jam Buka</label>
             <input type="time" name="jam_buka" value="{{ $info->jam_buka }}" class="form-control" required>

@@ -6,7 +6,6 @@
 
     <h2 class="fw-bold mb-4 text-center">Status Pengajuan Adopsi</h2>
 
-    {{-- Notifikasi --}}
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

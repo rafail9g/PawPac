@@ -78,8 +78,7 @@
         </div>
     </div>
 
-    <!-- Modal Tambah -->
-    <div class="modal fade" id="addModal" tabindex="-1">
+=    <div class="modal fade" id="addModal" tabindex="-1">
         <div class="modal-dialog">
             <form action="{{ route('admin.materi.store') }}" method="POST">
                 @csrf
@@ -115,8 +114,7 @@
         </div>
     </div>
 
-    <!-- Modal pilih untuk edit -->
-    <div class="modal fade" id="editChooseModal" tabindex="-1">
+=    <div class="modal fade" id="editChooseModal" tabindex="-1">
         <div class="modal-dialog">
             <form>
                 <div class="modal-content">
@@ -144,8 +142,7 @@
         </div>
     </div>
 
-    <!-- Modal pilih untuk hapus -->
-    <div class="modal fade" id="deleteChooseModal" tabindex="-1">
+=    <div class="modal fade" id="deleteChooseModal" tabindex="-1">
         <div class="modal-dialog">
             <form id="deleteForm" method="POST">
                 @csrf
@@ -176,7 +173,6 @@
         </div>
     </div>
 
-    <!-- Modal edit dynamic -->
     <div class="modal fade" id="editModalDynamic" tabindex="-1">
         <div class="modal-dialog">
             <form id="editFormDynamic" method="POST">
