@@ -255,50 +255,48 @@
             @csrf
 
             @foreach($soal as $index => $s)
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="fw-bold mb-3">
-                            Soal {{ $index + 1 }}: {{ $s->pertanyaan }}
-                        </h5>
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                        Soal {{ $index + 1 }}: {{ $s->pertanyaan }}
+                    </h5>
+                    @if($s->tipe_soal === 'isian')
+                        <textarea class="form-control jawaban-isian"
+                                name="jawaban_{{ $s->id }}"
+                                id="jawaban_{{ $s->id }}"
+                                rows="3"
+                                placeholder="Tulis jawaban Anda di sini (tanpa simbol khusus)"
+                                required
+                                data-soal-id="{{ $s->id }}">{{ old('jawaban_' . $s->id, $progress['jawaban']['jawaban_' . $s->id] ?? '') }}</textarea>
+                        <div class="error-message" id="error_{{ $s->id }}">
+                            Jawaban tidak boleh mengandung simbol khusus (@#$%^&* dll)
+                        </div>
+                        <small class="text-muted">
+                            <span id="char_count_{{ $s->id }}">0</span> karakter
+                        </small>
 
-                        @if($s->tipe_soal === 'isian')
-                            <textarea class="form-control jawaban-isian"
-                                    name="jawaban_{{ $s->id }}"
-                                    id="jawaban_{{ $s->id }}"
-                                    rows="3"
-                                    placeholder="Tulis jawaban Anda di sini (tanpa simbol khusus)"
-                                    required
-                                    data-soal-id="{{ $s->id }}">{{ old('jawaban_' . $s->id, $progress['jawaban']['jawaban_' . $s->id] ?? '') }}</textarea>
-                            <div class="error-message" id="error_{{ $s->id }}">
-                                ⚠️ Jawaban tidak boleh mengandung simbol khusus (@#$%^&* dll)
-                            </div>
-                            <small class="text-muted">
-                                <span id="char_count_{{ $s->id }}">0</span> karakter
-                            </small>
+                    @elseif($s->tipe_soal === 'pg')
+                        @foreach(['a','b','c','d'] as $opsi)
+                            @if($s->{'opsi_'.$opsi})
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input jawaban-pg"
+                                        type="radio"
+                                        name="jawaban_{{ $s->id }}"
+                                        value="{{ strtoupper($opsi) }}"
+                                        id="soal{{ $s->id }}_{{ $opsi }}"
+                                        {{ old('jawaban_' . $s->id, $progress['jawaban']['jawaban_' . $s->id] ?? '') == strtoupper($opsi) ? 'checked' : '' }}
+                                        required>
 
-                        @elseif($s->tipe_soal === 'pg')
-                            @foreach(['a','b','c','d'] as $opsi)
-                                @if($s->{'opsi_'.$opsi})
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input jawaban-pg"
-                                               type="radio"
-                                               name="jawaban_{{ $s->id }}"
-                                               value="{{ strtoupper($opsi) }}"
-                                               id="soal{{ $s->id }}_{{ $opsi }}"
-                                               {{ old('jawaban_' . $s->id, $progress['jawaban']['jawaban_' . $s->id] ?? '') == strtoupper($opsi) ? 'checked' : '' }}
-                                               required>
-
-                                        <label class="form-check-label" for="soal{{ $s->id }}_{{ $opsi }}">
-                                            {{ strtoupper($opsi) }}. {{ $s->{'opsi_'.$opsi} }}
-                                        </label>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @endif
-
-                    </div>
+                                    <label class="form-check-label" for="soal{{ $s->id }}_{{ $opsi }}">
+                                        {{ strtoupper($opsi) }}. {{ $s->{'opsi_'.$opsi} }}
+                                    </label>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
                 </div>
-            @endforeach
+            </div>
+        @endforeach
 
             <div class="text-center mt-4 d-flex gap-3 justify-content-center">
                 <a href="{{ route('adopter.quiz.cancel', $kucing->id) }}"

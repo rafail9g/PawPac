@@ -36,15 +36,27 @@ class ProviderAdoptController extends Controller
 
         foreach ($adopsi->jawaban as $j) {
 
-            if ($j->soal->tipe == "pg") {
+            if ($j->soal->tipe_soal == "pg") {
                 if ($j->is_correct) $total++;
                 continue;
             }
 
-            $j->is_correct = $request->input("nilai_$j->id");
-            $j->save();
+            if ($j->soal->tipe_soal == "isian") {
+                $nilaiInput = $request->input("nilai_$j->id");
 
-            if ($j->is_correct) $total++;
+                if ($nilaiInput === null) {
+                    return back()->withErrors([
+                        'error' => "Penilaian untuk soal isian belum lengkap!"
+                    ])->withInput();
+                }
+
+                $j->is_correct = (bool)$nilaiInput;
+                $j->save();
+
+                if ($j->is_correct) {
+                    $total++;
+                }
+            }
         }
 
         $adopsi->status = $request->status;
@@ -74,21 +86,11 @@ class ProviderAdoptController extends Controller
             ->with('success', 'Penilaian berhasil disimpan dan history tercatat.');
     }
 
-    // public function editLocation()
-    // {
-    //     $lokasi = \App\Models\Lokasi::first();
-
-    //     return view('provider.location', [
-    //         'lat' => $lokasi?->lat ?? 0,
-    //         'lng' => $lokasi?->lng ?? 0,
-    //     ]);
-    // }
-
     public function editLocation()
     {
         session()->forget('errors');
         session()->forget('_old_input');
-    
+
         $info = InfoLokasi::first() ?? new InfoLokasi();
         $lokasi = Lokasi::first() ?? new Lokasi();
 
@@ -130,14 +132,12 @@ class ProviderAdoptController extends Controller
             'jam_tutup.required' => 'Jam tutup harus diisi.',
         ]);
 
-        // validasi jam
         if ($request->jam_tutup <= $request->jam_buka) {
             return back()->withErrors([
                 'jam_tutup' => 'Jam tutup harus lebih besar dari jam buka!'
             ]);
         }
 
-        // UPDATE INFO LOKASI
         $info = InfoLokasi::first();
 
         if (!$info) {
@@ -150,7 +150,6 @@ class ProviderAdoptController extends Controller
         $info->jam_tutup = $request->jam_tutup;
         $info->save();
 
-        // UPDATE MAP
         $lokasi = Lokasi::first();
 
         if (!$lokasi) {

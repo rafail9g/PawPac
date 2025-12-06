@@ -32,13 +32,12 @@ class QuizAdminController extends Controller
 
         QuizSoal::create([
             'pertanyaan' => $validated['pertanyaan'],
-            'tipe' => $validated['tipe'],
+            'tipe_soal' => $validated['tipe'],
             'opsi_a' => $validated['tipe'] == 'pg' ? $validated['opsi_a'] : null,
             'opsi_b' => $validated['tipe'] == 'pg' ? $validated['opsi_b'] : null,
             'opsi_c' => $validated['tipe'] == 'pg' ? $validated['opsi_c'] : null,
             'opsi_d' => $validated['tipe'] == 'pg' ? $validated['opsi_d'] : null,
             'jawaban_benar' => $validated['tipe'] == 'pg' ? $validated['jawaban_benar'] : null,
-            'tipe_soal' => $validated['tipe'] == 'pg' ? 'pilihan' : 'isian',
         ]);
 
         return redirect()->route('admin.quiz.index')->with('success', 'Soal berhasil ditambahkan!');
@@ -71,13 +70,12 @@ class QuizAdminController extends Controller
 
         $soal->update([
             'pertanyaan' => $validated['pertanyaan'],
-            'tipe' => $validated['tipe'],
+            'tipe_soal' => $validated['tipe'],
             'opsi_a' => $validated['tipe'] == 'pg' ? $validated['opsi_a'] : null,
             'opsi_b' => $validated['tipe'] == 'pg' ? $validated['opsi_b'] : null,
             'opsi_c' => $validated['tipe'] == 'pg' ? $validated['opsi_c'] : null,
             'opsi_d' => $validated['tipe'] == 'pg' ? $validated['opsi_d'] : null,
             'jawaban_benar' => $validated['tipe'] == 'pg' ? $validated['jawaban_benar'] : null,
-            'tipe_soal' => $validated['tipe'] == 'pg' ? 'pilihan' : 'isian',
         ]);
 
         return redirect()->route('admin.quiz.index')->with('success', 'Soal berhasil diperbarui!');
@@ -86,9 +84,7 @@ class QuizAdminController extends Controller
     public function destroy($id)
     {
         $soal = QuizSoal::findOrFail($id);
-
         $soal->jawaban()->delete();
-
         $soal->delete();
 
         return redirect()->route('admin.quiz.index')->with('success', 'Soal berhasil dihapus!');

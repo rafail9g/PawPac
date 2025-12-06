@@ -193,8 +193,8 @@
                     <div class="quiz-card">
 
                         <div class="d-flex justify-content-between align-items-start mb-3">
-                            <span class="quiz-type-badge {{ $s->tipe == 'pg' ? 'badge-pg' : 'badge-isian' }}">
-                                {{ $s->tipe == 'pg' ? '✓ Pilihan Ganda' : 'Isian' }}
+                            <span class="quiz-type-badge {{ $s->tipe_soal == 'pg' ? 'badge-pg' : 'badge-isian' }}">
+                                {{ $s->tipe_soal == 'pg' ? '✓ Pilihan Ganda' : 'Isian' }}
                             </span>
                             <span class="text-muted" style="font-size: 14px;">Soal #{{ $index + 1 }}</span>
                         </div>
@@ -203,7 +203,7 @@
                             {{ $s->pertanyaan }}
                         </div>
 
-                        @if($s->tipe == 'pg')
+                        @if($s->tipe_soal == 'pg')
                             <div class="quiz-options">
                                 <div class="option-item">A. {{ $s->opsi_a }}</div>
                                 <div class="option-item">B. {{ $s->opsi_b }}</div>
@@ -213,7 +213,7 @@
 
                             @if($s->jawaban_benar)
                                 <div class="correct-answer">
-                                    Jawaban Benar: {{ $s->jawaban_benar }}
+                                    ✓ Jawaban Benar: {{ $s->jawaban_benar }}
                                 </div>
                             @endif
                         @else
@@ -222,23 +222,6 @@
                             </div>
                         @endif
 
-                        <div class="d-flex gap-2">
-                            <button class="btn-action-quiz btn-edit-quiz flex-fill"
-                                    onclick="openEditModal({{ $s->id }})">
-                                Edit
-                            </button>
-
-                            <form action="{{ route('admin.quiz.destroy', $s->id) }}"
-                                  method="POST"
-                                  class="flex-fill"
-                                  onsubmit="return confirm('Yakin ingin menghapus soal ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn-action-quiz btn-delete-quiz w-100">
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 </div>
             @endforeach

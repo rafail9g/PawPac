@@ -44,7 +44,7 @@ class QuizSeeder extends Seeder
                 'opsi_c' => 'Apartemen',
                 'opsi_d' => 'Lainnya',
                 'tipe_soal' => 'pg',
-                'jawaban_benar' => 'A', // contoh
+                'jawaban_benar' => 'A',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -98,7 +98,7 @@ class AdoptController extends Controller
         foreach ($soal as $s) {
             $inputName = "jawaban_$s->id";
 
-            if ($s->tipe == "isian") {
+            if ($s->tipe_soal == "isian") {
                 $jawaban = $request->input($inputName);
 
                 if (!preg_match('/^[a-zA-Z0-9\s,.\-]+$/u', $jawaban)) {
@@ -132,12 +132,12 @@ class AdoptController extends Controller
                 'adopsi_id' => $adopsi->id,
                 'soal_id' => $s->id,
                 'jawaban' => $jawabanUser,
-                'is_correct' => $s->tipe == 'pg'
+                'is_correct' => $s->tipe_soal == 'pg'
                     ? ($jawabanUser == $s->jawaban_benar)
                     : null
             ]);
 
-            if ($s->tipe == "pg" && $jawabanUser == $s->jawaban_benar) {
+            if ($s->tipe_soal == "pg" && $jawabanUser == $s->jawaban_benar) {
                 $totalNilai++;
             }
         }
@@ -150,7 +150,6 @@ class AdoptController extends Controller
         return redirect()->route('adopter.status')
             ->with('success', 'Tes selesai! Jawaban isian sedang menunggu verifikasi provider.');
     }
-
     public function status()
     {
         $riwayat = Adoption::where('adopter_id', auth()->id())->latest()->get();

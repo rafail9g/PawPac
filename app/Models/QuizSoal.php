@@ -14,9 +14,8 @@ class QuizSoal extends Model
         'opsi_b',
         'opsi_c',
         'opsi_d',
-        'tipe',
-        'jawaban_benar',
         'tipe_soal',
+        'jawaban_benar',
     ];
 
     public function jawaban()

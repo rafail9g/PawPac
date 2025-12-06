@@ -9,7 +9,6 @@ class KucingController extends Controller
 {
     public function index()
     {
-        // ambil semua data kucing
         $kucing = Kucing::all();
         return view('datakucing', compact('kucing'));
     }

@@ -168,6 +168,18 @@
     transform: scale(1.05);
     color: white;
 }
+
+.quiz-options {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.option-item {
+    padding: 8px 0;
+    color: #6b5030;
+}
 </style>
 
 <div class="container mt-4">
@@ -237,13 +249,32 @@
 
         <h2 class="section-title">Review Pengajuan Adopsi</h2>
 
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Berhasil!</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong>
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
         <div class="info-box">
             <div class="info-item">
                 <span class="info-label">Kucing:</span>
                 <span class="info-value">{{ $adopsi->kucing->name }}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">👤 Adopter:</span>
+                <span class="info-label">Adopter:</span>
                 <span class="info-value">{{ $adopsi->adopter->name }}</span>
             </div>
             <div class="info-item">
@@ -268,8 +299,8 @@
                         <h6 class="fw-bold mb-0" style="color: #4b2e14;">
                             Soal {{ $index + 1 }}
                         </h6>
-                        <span class="badge-type {{ $j->soal->tipe == 'pg' ? 'badge-pg' : 'badge-isian' }}">
-                            {{ $j->soal->tipe == 'pg' ? '✓ Pilihan Ganda' : 'Isian' }}
+                        <span class="badge-type {{ $j->soal->tipe_soal == 'pg' ? 'badge-pg' : 'badge-isian' }}">
+                            {{ $j->soal->tipe_soal == 'pg' ? '✓ Pilihan Ganda' : '📝 Isian' }}
                         </span>
                     </div>
 
@@ -277,28 +308,48 @@
                         {{ $j->soal->pertanyaan }}
                     </p>
 
+                    @if($j->soal->tipe_soal == 'pg')
+                        <div class="quiz-options">
+                            <div class="option-item">A. {{ $j->soal->opsi_a }}</div>
+                            <div class="option-item">B. {{ $j->soal->opsi_b }}</div>
+                            <div class="option-item">C. {{ $j->soal->opsi_c }}</div>
+                            <div class="option-item">D. {{ $j->soal->opsi_d }}</div>
+                        </div>
+
+                        <div class="mb-3" style="background: #e8f5e9; padding: 12px; border-radius: 8px; border-left: 3px solid #4caf50;">
+                            <small class="text-muted d-block mb-1">✓ Jawaban Benar:</small>
+                            <strong style="color: #2e7d32;">
+                                {{ $j->soal->jawaban_benar }}. {{ $j->soal->{'opsi_' . strtolower($j->soal->jawaban_benar)} }}
+                            </strong>
+                        </div>
+                    @endif
+
                     <div class="jawaban-user">
                         <small class="text-muted d-block mb-1">Jawaban User:</small>
                         <strong style="color: #0d6efd;">{{ $j->jawaban }}</strong>
                     </div>
 
-                    @if($j->soal->tipe == 'pg')
+                    @if($j->soal->tipe_soal == 'pg')
                         <div class="mt-3">
                             @if($j->is_correct)
-                                <span class="badge bg-success">Jawaban Benar (Otomatis)</span>
+                                <span class="badge bg-success" style="padding: 8px 16px; font-size: 14px;">
+                                    ✓ Jawaban Benar (Otomatis Dinilai)
+                                </span>
                             @else
-                                <span class="badge bg-danger">Jawaban Salah (Otomatis)</span>
+                                <span class="badge bg-danger" style="padding: 8px 16px; font-size: 14px;">
+                                    ✗ Jawaban Salah (Otomatis Dinilai)
+                                </span>
                             @endif
                         </div>
                     @else
                         <div class="mt-3">
                             <label class="fw-semibold mb-2" style="color: #4b2e14;">
-                                Penilaian Provider:
+                                Penilaian Provider (Wajib):
                             </label>
                             <select name="nilai_{{ $j->id }}" class="form-select select-nilai" required>
-                                <option value="">-- Pilih --</option>
-                                <option value="1">Benar</option>
-                                <option value="0">Salah</option>
+                                <option value="">-- Pilih Penilaian --</option>
+                                <option value="1">✓ Benar</option>
+                                <option value="0">✗ Salah</option>
                             </select>
                         </div>
                     @endif
