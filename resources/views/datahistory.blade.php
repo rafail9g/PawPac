@@ -92,6 +92,14 @@
 .info-value {
     color: #6b5030;
 }
+
+.alert-warning-custom {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
 </style>
 
 <div class="container mt-4">
@@ -115,45 +123,72 @@
     @else
         <div class="row">
             @foreach ($history as $h)
-                <div class="col-md-6 col-lg-4">
-                    <div class="history-card">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h6 class="fw-bold mb-0" style="color: #4b2e14;">{{ $h->adopsi->kucing->name }}</h6>
-                            <span class="{{ $h->status == 'lulus' ? 'badge-history-lulus' : 'badge-history-tidak' }}">
-                                {{ $h->status == 'lulus' ? '✓ Lulus' : '✗ Tidak Lulus' }}
-                            </span>
+                @if($h->adopsi && $h->adopsi->kucing && $h->adopsi->adopter)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="history-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h6 class="fw-bold mb-0" style="color: #4b2e14;">{{ $h->adopsi->kucing->name }}</h6>
+                                <span class="{{ $h->status == 'lulus' ? 'badge-history-lulus' : 'badge-history-tidak' }}">
+                                    {{ $h->status == 'lulus' ? '✓ Lulus' : '✗ Tidak Lulus' }}
+                                </span>
+                            </div>
+
+                            <div class="info-row">
+                                <span class="info-label">👤 Adopter:</span>
+                                <span class="info-value">{{ $h->adopsi->adopter->name }}</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span class="info-label">Tanggal:</span>
+                                <span class="info-value">{{ $h->created_at->format('d M Y, H:i') }}</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span class="info-label">Catatan:</span>
+                                <span class="info-value">{{ Str::limit($h->catatan ?? '-', 30) }}</span>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-3">
+                                <button class="btn-action-history btn-edit-history flex-fill"
+                                        onclick="openEditHistory({{ $h->id }})">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+
+                                <form action="{{ route('admin.history.destroy', $h->id) }}" method="POST" class="flex-fill"
+                                      onsubmit="return confirm('Yakin ingin menghapus history ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn-action-history btn-delete-history w-100">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </div>
+                    </div>
+                @else
+                    <div class="col-md-6 col-lg-4">
+                        <div class="history-card" style="border-left: 5px solid #dc3545;">
+                            <div class="alert-warning-custom">
+                                <strong>⚠️ Data Tidak Lengkap</strong>
+                                <p class="mb-0 mt-2" style="font-size: 14px;">
+                                    History ID: {{ $h->id }}<br>
+                                    Status: {{ $h->status }}<br>
+                                    Catatan: {{ $h->catatan ?? '-' }}<br>
+                                    <small class="text-muted">Data adopsi terkait mungkin telah dihapus</small>
+                                </p>
+                            </div>
 
-                        <div class="info-row">
-                            <span class="info-label">👤 Adopter:</span>
-                            <span class="info-value">{{ $h->adopsi->adopter->name }}</span>
-                        </div>
-
-                        <div class="info-row">
-                            <span class="info-label">Tanggal:</span>
-                            <span class="info-value">{{ $h->created_at->format('d M Y, H:i') }}</span>
-                        </div>
-
-                        <div class="info-row">
-                            <span class="info-label">Catatan:</span>
-                            <span class="info-value">{{ Str::limit($h->catatan ?? '-', 30) }}</span>
-                        </div>
-
-                        <div class="d-flex gap-2 mt-3">
-                            <button class="btn-action-history btn-edit-history flex-fill"
-                                    onclick="openEditHistory({{ $h->id }})">
-                                Edit
-                            </button>
-
-                            <form action="{{ route('admin.history.destroy', $h->id) }}" method="POST" class="flex-fill"
+                            <form action="{{ route('admin.history.destroy', $h->id) }}" method="POST" class="mt-3"
                                   onsubmit="return confirm('Yakin ingin menghapus history ini?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn-action-history btn-delete-history w-100">Hapus</button>
+                                <button class="btn-action-history btn-delete-history w-100">
+                                    <i class="bi bi-trash"></i> Hapus Data Rusak
+                                </button>
                             </form>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
     @endif
@@ -211,5 +246,4 @@ function openEditHistory(id) {
         });
 }
 </script>
-
 @endsection
